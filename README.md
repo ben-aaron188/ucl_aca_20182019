@@ -6,7 +6,7 @@ This is the companion website for the 2018-2019 module for 3rd year undergraduat
 ### Resources
 
 
-The [module handbook](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/aca_SECU0050_module_outline.html) provides you with all information around assessment, learning outcomes, timetables, and a general overview of the module. Use the module handbook as your go-to guide throughout the module.
+The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6d620d3f3357e3956b91ae232992d731ded6925c/aca_SECU0050_module_outline.html) provides you with all information around assessment, learning outcomes, timetables, and a general overview of the module. Use the module handbook as your go-to guide throughout the module.
 
 **Slides**
 
