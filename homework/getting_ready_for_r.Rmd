@@ -1,0 +1,92 @@
+---
+title: "Getting ready for R"
+author: "B Kleinberg"
+subtitle: Advanced Crime Analysis, UCL
+output:
+  html_document:
+    df_print: paged
+---
+
+This brief document will guide you through the basics needed to set up R for the "Advanced Crime Analysis" module.
+
+
+## What's in a name?
+
+You will notice that we use the terms **R notebook**, **R**, and **R studio**. They do sound similar and are all closely related but it's good to grasp what each of these is.
+
+- **R notebook** refers to an interactive document like this current one, which you can open as an .html file in your browser or as a .Rmd (= R markdown format) in R. You can run code directly from that file in R Studio. We will use R notebooks for the tutorials and you will submit the code for your capstone project in an R notebook, too.
+- **R Studio** is the software that allows you to run R in a nice interface with different panes on the screen (e.g. the source of the code, the console with the output, a plot pane for the graphics display, etc.)
+- **R** is the programming language that we use in this module. It shares many similarities with other languages such as python but is more suitable for statistics and data science (my biased opinion!).
+
+## Getting your machine ready for R
+
+We strongly encourage you to bring your own laptop to the tutorials. You will be able to run R Studio on it and do all the necessary work with it. If you do not have  your own laptop, you will be able to use UCL's computers in the cluster room.
+
+### Installing R Studio
+
+R Studio is the software that we will sue to write, develop and run R commands.
+
+Please follow this guide [here](http://web.cs.ucla.edu/~gulzar/rstudio/) to install R Studio (and the required core R) on your machine.
+
+## Customising R Studio
+
+There are two important ways in which you can (and should) customise R Studio.
+
+1. Changing the appearance of R Studio
+
+A brief guide to setting up the workspace to your own preference is [this one](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio). Please go through these steps and make R Studio your own as you want it.
+
+2. Installing dependencies/libraries
+
+R has an extensive collection of 'core' functions that cover most of the statistical analyses you will encounter.
+
+An example is calculating a simple average:
+
+```{r}
+# This creates a variable "a" with five numerical values
+a = c(1, 2, 3, 4, 5)
+print(a)
+```
+
+```{r}
+#We can use the core functions of R to calculate the average (mean)
+mean(a)
+```
+
+However: in many cases you will have to use so-called libraries/packages that provide additional - often more advanced or more specialised - functionalities on top of the core R. 
+
+In essence, these packages add new functions to R.
+
+An example is the [`rvest` package](https://github.com/hadley/rvest) that you saw in use for the web-scraping example in the introduction lecture.
+
+Each package consists of:
+- a pdf manual that documents the functions of the package - [here's the rvest pdf](https://cran.r-project.org/web/packages/rvest/rvest.pdf)
+- an openly available code base - [the source code of rvest](https://github.com/hadley/rvest)
+- an integrated R help: each function of installed packages is documented in R itself and can be retrieved with the `?` command: try `?mean`
+
+
+To install a library, you can use the `install.packages()` command (details on [Jeffrey Leek's slides](http://jtleek.com/modules/01_DataScientistToolbox/02_09_installingRPackages/#1) here) or by clicking on Tools --> Install packages --> "typing the package name".
+
+Use one of these steps to install the `rvest` package.
+
+To "activate" the package, you need to load it for your R session using the `library` command:
+
+```{r}
+library(rvest)
+```
+
+To test whether all of the above has worked, try to run code the code shown in the lecture to access the FBI's most wanted terrorists website.
+
+```{r}
+# Note: we will go into depth with this code next week. For now, it suffices if you run the code
+target_page = read_html('https://www.fbi.gov/wanted/terrorism')
+target_page %>%
+  html_nodes('p.name') %>%
+  html_text()
+```
+
+In the upcoming tutorial session, you will learn how to navigate the R environment and how to solve data science problems.
+
+## END
+
+---
