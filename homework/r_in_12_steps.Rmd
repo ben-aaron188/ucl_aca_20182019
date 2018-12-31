@@ -1,0 +1,724 @@
+---
+title: "R for crime scientists in 12 steps"
+author: "B Kleinberg"
+subtitle: Dept of Security and Crime Science, UCL
+output:
+  html_document:
+    df_print: paged
+---
+
+## Why this brief R guide?
+
+This document provides with a gentle introduction to R as it will be used in the UCL undergraduate modules SECU0013 (PSM2) and SECU0050 (Adv. Crime Analysis) of the BSc in Security and Crime Science.
+
+We assume that you have a basic knowledge of the core concepts that most programming languages share (e.g. if-else statements, variables, for-loops). In the following steps we will show you how these concepts work in R.
+
+If you work through this notebook carefully, you will be able to master all subsequent tutorials and assignments in these modules. Equally, the concepts introduced here and the mastery of these is an important precondition for the next lectures and we encourage you to ask for clarification if you struggle with some aspects in the Q&A forum or during the first tutorial.
+
+### A general note on "programming"
+
+We are aware that you did not sign up for a programming module, nor a full BSc in computational statistics, data science or software engineering. Nevertheless, we hope that we can show you in the current module why statistics (PSM2 module) and data science (ACA module) are core competencies not only for researchers but arguable ever more so for police and intelligence analysts, policy makers and practically any other related profession.
+
+We adhere to a rather pragmatic approach to programming in this module: it is a vehicle that enables you to solve problems that we would otherwise not be able to solve. A nice analogy for the programming aspects is that of a toolbox. You will learn skills that you can use as tools to solve most problems that you will encounter when making sense of data.
+
+Learning a programming language is hard but also fun. The start is always slow and paved with problems/errors/bugs that are frustrating. Struggling with a programming problem is the norm and we'd be surprised if everybody would solve all problems immediately. The most important part is: never shy away from asking a question.
+
+## I don't like this guide, can I use another one?
+
+Yes, you can and should use other introductions, too. Here's a brief list:
+
+- **STRONGLY RECOMMENDED** Phil Murphy's ["Gentle intro to R"](https://rpubs.com/pjmurphy/414993): this will help you grasp the core concepts of variables, concatenation and accessing elements in data objects.
+- Fullerton's ["Gentle introduction to R"](https://rpubs.com/pjmurphy/414993): explains some higher-level aspects such as installing R Studio and understanding the interface.
+- Data Camp's ["Introduction to R"](https://www.datacamp.com/courses/free-introduction-to-r) is a free online course that walks you through the main data types in R and let's you work woth them in notebooks. This is recommend if you like to learn with video instructions.
+
+## The 12 steps to glory
+
+To work through the 12 steps, we assume that you have R Studio installed and running on your machine.
+
+#### Step 1: Creating variables
+
+You might want to re-use some data in your code, so rather than typing it each time, you can 'store' it as a variable.
+
+Suppose you have one single number that you wish to re-use, say, the [no. of people living in London](http://worldpopulationreview.com/world-cities/london-population/) (8,173,941):
+
+```{r}
+# You can store that number as a variable by assigning it through the '=' operator
+
+london_population = 8173941
+print(london_population)
+```
+
+Note: to run the code that you have typed in R, you can simply place the cursor at the end of the line and press CRTL+RETURN (Windows) or CMD+ENTER (Mac). You can also highlight multiple lines and run these. R will exectue the code line by line.
+
+Variable names must start with a letter and are case-sensitive:
+
+```{r}
+#print(London_pupulation) 
+# --> this would return an error because this variable does not exist
+
+print(london_population) #returns the value assigned to this variable
+```
+
+Note that the `#` in the R code allows you to comment a section. You will need this when you deliver your assignments that contain R code.
+
+Suppose we have a series of numbers that represent the (made up) number of snatching crimes in Camden in 5 months: 16, 32, 40, 12, 8
+
+```{r}
+# We can store this sequence as a vector:
+snatching_crimes_camden = c(16, 32, 40, 12, 8)
+print(snatching_crimes_camden)
+```
+
+Note how we use the `c()` function to combine values into a vector here. 
+
+
+**Task:**
+
+Create a variable that is equal to your age in years and call that variable `my_age`:
+
+```{r}
+#type+run your code here
+
+```
+
+
+#### Step 2: getting help in R
+
+It's important to know how to find help. There are two ways through which you will be able to get help for most of your R problems:
+
+- using the built-in R help: if you use the `?` in R, it will bring up the documentation of a function/package.
+```{r}
+#for the c() functio above, you'd use:
+?c
+
+#for the 'mean' function to calculate the average, you'd use
+?mean
+
+#if you only have a vague idea of the term you're looking for, you'd use the double ??:
+??confidence
+
+#or
+
+??barplot
+```
+
+- using external help forums, of which Stackoverflow is by far the most sophisticated, fast and helpful: you can use it for [all kinds of programming/data questions](https://stackoverflow.com/) or [specific for R questions](https://stackoverflow.com/questions/tagged/r).
+
+#### Step 3: R as a calculator
+
+You can use R as a calculator using numbers directly or variables that you assigned previously:
+
+```{r}
+#simple addition
+2-3+42
+
+#multiplication
+23*67
+
+#fractions
+3/4
+
+#exponentiation
+2^9 #reads: 2 to the power of 9
+
+#square roots
+sqrt(4) #reads: square root of 4
+```
+
+
+Using variables:
+
+```{r}
+a = 42
+b = 2
+
+a/b
+
+#assigning variables to calculated values
+
+c = a/b
+c
+```
+
+Making use of R's vectorised (=relying on vectors as core) structure, you can divide multiple values through one other value:
+
+```{r}
+#dividing the five counts of snatching crimes by the population count of Camden
+camden_population = 253400
+
+snatching_crimes_camden/camden_population
+```
+
+**Task:**
+
+Use the `my_age` variable and calculate your age in seconds (assuming each year has 365 days):
+
+```{r}
+#type+run your code here...
+
+```
+
+
+#### Step 4: Data structures
+
+For the purpose of this module, we will focus on 
+
+- single values
+```{r}
+#single values can be numeric, characters or boolean
+my_numeric = 4
+my_character = "this is a character string"
+my_boolean = TRUE
+```
+
+- vectors
+```{r}
+numeric_vector = c(0,1,2,3,4,5,6,7,8,9)
+character_vector = c("word 1", "word 2", "word 3")
+boolean_vector = c(TRUE, FALSE, FALSE, TRUE)
+```
+
+- dataframes
+
+The data frame is the most important data structure in R for our module and we will use them throughout.
+
+> "[A dataframe] is a collection of values, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a variable and an observation. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes." [from: Tidy Data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+
+Thus, a dataframe can be used to represent multiple values. More specifically, it can represent multiple variables for multiple observations.
+
+```{r}
+#this will create a dataframe of 10 observations with three variables:
+# - an identifier of financial trading platforms: A, B, C, D, ... J
+# - count of fraudulent transactions in 2018: numerical
+# - count of all transactions in 2018: numerical
+
+trading_data = data.frame('identifier' = LETTERS[1:10]
+                          , 'cnt_fraudulent' = rpois(n = 10
+                                                     , lambda = 30
+                                                     )
+                          , 'cnt_all' = round(rnorm(n = 10
+                                              , mean = 100000
+                                              , sd = 30000
+                                              )
+                                              , 0)
+                          )
+trading_data
+
+# you do not have to master the functions used here (rnorm and rpois generate random numbers; and LETTERS queries all letters in alphabetical order)
+```
+
+You can see that each row represents an observation that has multiple variables.
+
+- lists: A dataframe requires that all variables have the same length. If you wanted to mix lengths or modes (numerical, string, boolean), you could use R's "container" structure, the list. We will not use lists in this module but you can easily see how it stores all kinds of data structures within it:
+
+```{r}
+my_list = list() #this creates an empty list
+
+#now we populate the list manually:
+my_list[[1]] =  boolean_vector #this places the my_boolean variable (a boolean vector created above) in the first position of the empty list
+
+my_list[[2]] = character_vector
+
+my_list[[3]] = trading_data
+```
+
+```{r}
+#take a look at the list:
+my_list
+```
+
+
+#### Step 5: Loading data (importing)
+
+Rather than creating a data.frame manually as we did above, you'd normally load data into R and work with the data once imported.
+
+The data import/export is very important because it allows you to use data from someone else and to share your own data.
+
+We'll focus on two common types of data import:
+
+- a `.csv` file (comma-separated file): this file type is often generated by government websites.
+
+In the `/data` directory, you can find a file called `crime_data_july_mps.csv`. These data are all police-recorded crimes to the Metropolitan Police in July 2018 [from police.uk](https://data.police.uk/data/). 
+
+We will read this file into R as a dataframe as follows:
+
+```{r}
+my_first_imported_data = read.csv(file = "./data/crime_data_july_mps.csv" #this points R to the file that you want to read
+                                  , header = T #this specifies whether or not there are variable names in the dataframe
+                                  )
+```
+
+Note: the `file = ...` command assumes you are in the tutorials folder when working through this code. If you are not, R will not find the file. Alternatively, you can create your own folder with this R Notebook file and create a sub-folder named data with the `crime_data_july_mps.csv` file in it.
+
+```{r}
+#Have a look at the just imported data
+
+head(my_first_imported_data) #the head command will display only the first 5 rows
+```
+
+- an `.RData` file: this is one of R's own data exchange formats that is easy to use if you exchange or save data that is used in R only.
+
+You can load the same dataset with the `load` command:
+
+```{r}
+load(file = "./data/crime_data_july_mps.RData")
+
+head(crime_data_july)
+#note that this automatically creates the dataframe called 'crime_data_july' in your workspace
+```
+
+You can see on your computer that the `.csv` file is almost 3x as big as the same data in `.RData` format.
+
+**Task:**
+
+1. Take a look at the first 100 rows of the dataframe stored as `crime_data_july`:
+
+```{r}
+#Hint: take a look at the help file for the head() function to see what you can specify there
+
+```
+
+2. Import a new dataframe from an `.RData` file. Load the file called "crime_data_jul_aug_sep_mps.RData". This dataframe contains the crime data for the months July 2018, August 2018 and September 2018.
+
+```{r}
+#type+run your code here
+
+#Hint: you'd need to modify this code load(file = "./data/crime_data_july_mps.RData")
+
+#Once loaded, take a look at the first ten rows of the new dataframe called crime_data_jul_aug_sep
+```
+
+
+#### Step 6: Accessing data structures
+
+Remember how dataframes are structured? In essence, it's all about rows and columns, with each row being an observation and each column being a variable (or attribute) of that observation.
+
+Using this notion, we can exploit R's `[row, column]` notation: using squared brackets, we can index a dataframe using the two dimensions ROWS and COLUMNS, separated by a comma.
+
+```{r}
+crime_data_july[1, 1] #first row, first column
+
+crime_data_july[2, 4] #second row, fourth column
+
+crime_data_july[30:50, 3:5] #row 30 to 50, column 1 to 3
+```
+
+Note that the `:` means "to" so that you can indicate a range from one numerical value to the other (e.g. from the first column to the fifth).
+
+```{r}
+#We can also look at all observations of a column by leaving the ROW dimension empty:
+head(crime_data_july[, 5]
+     , n = 50) #all observations of the fifth column
+```
+
+```{r}
+#And we can look at all variables (columns) of a single observation by leaving the COLUMN dimension empty:
+
+crime_data_july[111, ] #all variables of the 111st row
+```
+
+You can also access columns by their variable name using the `$` operator:
+
+```{r}
+#to see all column names, we can use the names() function
+
+names(crime_data_july)
+
+#if we want to select only the longitude variable, we can access it directlt by its name:
+head(crime_data_july$longitude) #we use head() to avoid excessive output printing on the screen
+```
+
+
+**Task:**
+
+1. Index the `crime_data_july` dataframe to display the rows 100 to 300 and the 4th and 5th column:
+
+```{r}
+#type+run your code here
+```
+
+2. Index the `crime_data_july` dataframe to display the rows 10 to 40 and 1000 to 2000, and the columns 1, 3 and 5.
+
+```{r}
+#type+run your code here
+
+#Hint: you can specify the ROW and COLUMN dimension as vectors: 
+#crime_data_july[c(1,2,3), c(2,3,4)] is equal to crime_data_july[1:3, 2:4]
+
+
+```
+
+
+#### Step 7: Exploring dataframes
+
+There are several ways in which you may want to explore a dataframe. We will briefly walk through the most useful ones:
+
+- the number of rows: `nrow(NAME_OF_DATAFRAME)`
+- the number of columns: `ncol(NAME_OF_DATAFRAME)`
+- the number of rows and columns: `dim(NAME_OF_DATAFRAME)`
+- length of a column: `length(COLUMN)`
+
+Other useful ways to get a first glimpse at the data are `summary` and `str`:
+```{r}
+summary(crime_data_july) #this gives you basic information for each column, with statistical summaries for numerical values
+```
+
+```{r}
+str(crime_data_july) #shows you the first five observations for each column
+```
+
+
+Often you may want to cross-tabulate the data, for example to count how many occurrences of a specific crime type there are in the current data. In R, you'd use the `table()` function for this:
+
+```{r}
+#to count the occurrences of each level of a variable, we can use table().
+#here we want to count how many occurrences of each crime type we have in the current data
+table(crime_data_july$crime.type)
+```
+
+There are cases where you want to count occurrences split by another variable, for example the number of crime types per month. We can look at this using the table command for the `crime_data_jul_aug_sep` dataframe.
+
+```{r}
+#uncomment+run the next line, if you have not yet loaded the 
+load(file = "./data/crime_data_jul_aug_sep_mps.RData")
+
+#first look at the structure
+str(crime_data_jul_aug_sep)
+summary(crime_data_jul_aug_sep)
+
+#let's count how many crimes (in total) there are per month
+table(crime_data_jul_aug_sep$month)
+
+#what we often want is to use two variables to count one variable split by another.
+#we can simply use multiple arguments in the table() function:
+
+table(crime_data_jul_aug_sep$month, crime_data_jul_aug_sep$crime.type)
+#this returns the number of crime types per months
+```
+
+
+#### Step 8: Saving data (exporting)
+
+Just as you can load data quickly into R, you can also save new or modified dataframes.
+
+Suppose you are interested in "Violence and sexual offences" only. Let's create a new dataframe that contains only these occurrences. We can use R's `ROW, COLUMN` structure and simple add a condition, namely that `crime_data_jul_aug_sep$crime.type` must be equal to `Violence and sexual offences`. In R terms, we'd say: select all rows where the column `crime_data_jul_aug_sep$crime.type` equals (expressed as `==`) `Violence and sexual offences`. Let's call this new dataframe "violence_and_sexual_offences"
+
+```{r}
+#The correct R notation for this is:
+
+violence_and_sexual_offences = crime_data_jul_aug_sep[crime_data_jul_aug_sep$crime.type == "Violence and sexual offences", ] #note that the COLUMN dimension is empty since we want all columns to be selected
+
+#we can check whether this worked:
+table(violence_and_sexual_offences$crime.type)
+
+#you can see that we now only have incidents of violence and sexual offences
+```
+
+Now let's store this new dataframe:
+
+- as a `.csv` file: similar to `read.csv`, we can now use `write.csv` to store the new dataframe
+
+```{r}
+write.csv(x = violence_and_sexual_offences #this is our newly created dataframe
+          , file = './data/new_dataframe_violence_sexual_offences.csv' #this is the file name of the csv file
+          )
+```
+
+- as an `.RData` file: the counterpart to `load` is `save`
+
+```{r}
+save(violence_and_sexual_offences #our dataframe
+     , file = './data/new_dataframe_violence_sexual_offences.RData' #our filename
+     )
+```
+
+You can check in the `data` folder that you have just created two new files on your computer.
+
+
+#### Step 9: Functions
+
+In principle, a function is a small sequence of computations that takes an input (e.g. a column) and returns an output (e.g. the mean of the column).
+
+Let's use the `trading_data` dataframe that we created at the beginning to use functions in R.
+
+Some of the most frequently used functions are also the easiest to handle:
+
+```{r}
+#the mean of the count of fraudulent transactions
+mean(trading_data$cnt_fraudulent)
+
+#the minimum of the count of fraudulent transactions
+min(trading_data$cnt_fraudulent)
+
+#the max of the count of fraudulent transactions
+max(trading_data$cnt_fraudulent)
+
+#the standard deviation of the count of fraudulent transactions
+sd(trading_data$cnt_fraudulent)
+```
+
+**Task:**
+
+Calculate the range, mean, and variance for the `trading_data$cnt_all` column:
+
+```{r}
+#type+run your code here
+
+#Hint: you might need to use R's help or Google to find the function corresponding to each output
+```
+
+
+You can also apply functions indirectly by using R as a calculator. Suppose you wanted to calculate the rate of fraudulent transactions per 1000 transactions for each trading platform.
+
+Using the dataframe structure, you can directly calculate:
+
+```{r}
+(trading_data$cnt_fraudulent/trading_data$cnt_all)*1000
+```
+
+**Task:**
+
+Which platform has the highest rate of fraudulent transactions?
+
+```{r}
+#type+run your code here
+
+#Hint: use a core R function to retrieve the maximum value.
+```
+
+
+#### Step 10: If-else statements
+
+R knows two ways to express the common if-else statement. 
+
+1. You can write it in a way that it checks whether something is true or false in order to proceed - we will use this type of the if...else statement in the next step.
+
+or...
+
+2. You can write it so that each element (of a vector or column for example) is checked for a condition. This is useful if you want to create new variables, for example. We will use this method now:
+
+Suppose you want to create a new variable that represents whether the crime occurred in the peak of summer or in the late summer. You could say that July and August are peak summer, whereas September is late summer.
+
+Let's create a new variable called "summer_season" which can take the value `peak` (for July and August) or `late` (for Sept.). Expressed in an if...else statement, we would say: **IF the month is July or August THEN assign the value `peak` ELSE assign the value `late`**
+
+In R we can use the `ifelse()` function to do this intuitively:
+
+```{r}
+crime_data_jul_aug_sep$summer_season = ifelse(crime_data_jul_aug_sep$month == '2018-07' | crime_data_jul_aug_sep$month == '2018-08' #if
+                                              , 'peak' #then
+                                              , 'late' #else
+                                              )
+
+#There are a few things happening here:
+#1. note that we can create new variables on the fly by using the $ notation.
+#2. the ifelse statement contains three arguments: IF and ELSE
+# the first argument states the condition (here "crime_data_jul_aug_sep$month == '2018-07' | crime_data_jul_aug_sep$month == '2018-08'")
+# the second argument states what the new value should be if the condition is true
+# the third argument states what should happen if the condition were false
+```
+
+Note also that we used the OR operator `|` to say "IF the month is July **or** August".
+
+We can check whether the creation of the new variable worked:
+
+```{r}
+table(crime_data_jul_aug_sep$month, crime_data_jul_aug_sep$summer_season)
+```
+
+
+Finally, we can also create conditionals across multiple columns. Say we wanted to call all burglaries that happen in the peak summer month "holiday_burglaries" and all other crimes "other":
+
+```{r}
+crime_data_jul_aug_sep$holiday_indicator = ifelse(crime_data_jul_aug_sep$summer_season == 'peak' & crime_data_jul_aug_sep$crime.type == 'Burglary' #if
+                                                  , 'holiday_burglaries' #then
+                                                  , 'other' #else
+                                                  )
+
+head(crime_data_jul_aug_sep)
+```
+
+Note that we used the AND operator `&` here to state that tow conditions must be true: `crime_data_jul_aug_sep$summer_season` must be `== 'peak'` AND `crime_data_jul_aug_sep$crime.type` must be `== 'Burglary'`.
+
+**Task:**
+
+Write an `ifelse` statement to create a new variable called 'property_crime'. This variable should be either `TRUE` or `FALSE`. It should be true if the `crime.type` is one where a product/possession/property is taken, and false in all other cases.
+
+```{r}
+#type+run your code here
+
+#Hint: you might need to combine several crime types
+```
+
+
+#### Step 11: Custom functions
+
+Sometimes the core R functions (e.g., `mean`, `sd`) might not suffice to solve a particular problem. In these cases, you can write your own custom function.
+
+Let's suppose you want to calculate the distance between each crime location and UCL's Department of Security and Crime Science at 35 Tavistock Square. Since the formula for the distance between two long/lat coordinates requires [additional background](https://stackoverflow.com/questions/1420045/how-to-find-distance-from-the-latitude-and-longitude-of-two-locations/1422562#1422562), we'll stick to the differences on the x-axis (longitude) and y-axis (latitude) separately. That is how far east/west and north/south the location is from 35 Tavistock Square.
+
+The latitude and longitude coordinates of 35 Tavistock Square are 51.525066 and -0.129779 and we'd want a customised function that can perform that action generatively (i.e. without rewriting it each time).
+
+Specifically, we'd want a function that let's us determine whether we're interested in langitude or longitude. The algorithm (= sequence of discrete steps or calculations) within the function should take the correct input column, calculate the difference to the 35 Tavistock Square coordinates and return an output column with that difference.
+
+In R, we'd specify such a function as follows:
+
+```{r}
+get_coordinate_difference  = function(which_coordinate, absolute_value){ #here we name the function and assign function arguments 
+  #1. we use placeholder "which_coordinate" to determine whether it's longitude or latitude), we'd want this argument to be called as a string
+  #2. we use the boolean placeholder absolute_value to set whether we want the non-negative absolute difference or the real value
+  
+  #this is the function  body
+  
+  ucl_lat = 51.525066 #we set the target location coordinates
+  ucl_long = -0.129779
+  
+  if(which_coordinate == 'long'){ #here we use an if...else statement to check whether the function parameter which_coordinate is equal to 'long'
+    if(absolute_value == T){ #now we check whether the user specified the function parameter absolute_value as TRUE
+      output_variable = abs(ucl_long - crime_data_jul_aug_sep$longitude) #the abs() function returns the asbolute value  
+      
+    } else if(absolute_value == F){
+      output_variable = ucl_long - crime_data_jul_aug_sep$longitude
+    }
+    
+  } else if(which_coordinate == 'lat'){
+    if(absolute_value == T){
+      output_variable = abs(ucl_lat - crime_data_jul_aug_sep$latitude)  
+    } else if(absolute_value == F){
+      output_variable = ucl_lat - crime_data_jul_aug_sep$latitude
+    }
+    
+    #note that we specified an output variable called output_variable
+    
+  } else { #we use this to catch errors in the function specification
+    print('The function arguments are not valid, please check them!')
+  }
+  
+  #We now want this function to return the output variable.
+  
+  return(output_variable)
+  
+}
+```
+
+You can try this function now:
+
+```{r}
+crime_data_jul_aug_sep$long_difference =  get_coordinate_difference(which_coordinate = 'long'
+                          , absolute_value = T)
+
+#we directly created a new variable and used our own function to return the longitude difference
+
+head(crime_data_jul_aug_sep)
+```
+
+**Task:**
+
+Use the function to create a new column that contains the latitude difference.
+
+```{r}
+#type+run your code here
+
+```
+
+Now find which crime is closest to 35 Tavistock Square in latitude and longitude.
+
+```{r}
+#type+run your code here
+
+#Hint: you can use ?which.max to solve this problem
+
+```
+
+Which type of crime is closest to the department in latitude?
+
+```{r}
+#type+run your code here
+
+#Hint: use the indexing we learned above in Step 6
+```
+
+
+**Advanced task:**
+
+Write your own function that returns NW (for North-West), NE (North-East), SW (South-West), SE (South-East) when the crime location is located in the North-West of the department, North-East of the department, etc.
+
+```{r}
+#type+run your code here
+
+```
+
+
+#### Step 12: Loops
+
+Finally, the last core concept we will cover to have you prepared for using R in your quantitative analysis career are loops. Specifically: for-loops.
+
+The concept of the for-loop in its simplest for is to repeat a computation (e.g. printing a name) a given number of times. This is useful and necessary if you want to log (i.e. print) output to the console, for example, or if you want to iterate of a number of columns (e.g. calculating the mean for each of 100 columns).
+
+Ultimately, mastering loops is tricky but a massive time-saver and one of the most important tools for statistical computation and data science.
+
+Suppose you're tasked with the security management at UCL as to whether the crime was close or not close to the department. A colleague of yours says that anything that is within 200 metres is close and needs attention.
+
+As an estimation, let's convert 1.00 degree of latitude to 111,111 metres [(see here)](https://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters).
+
+We know want to perform the following steps:
+
+1. calculate the distance to UCL in metres on the latitude axis for each crime
+2. for very close crimes, print the crime and the distance to the screen
+
+The first part can be done by using the `1.00degree = 111111m` conversion on the absoloute difference in latitude:
+
+```{r}
+#create the variable (if not already done above)
+crime_data_jul_aug_sep$lat_difference =  get_coordinate_difference(which_coordinate = 'lat'
+                          , absolute_value = T)
+
+head(crime_data_jul_aug_sep)
+
+#create new variable that expresses the distance in metres
+crime_data_jul_aug_sep$lat_in_m = crime_data_jul_aug_sep$lat_difference * 111111
+
+head(crime_data_jul_aug_sep)
+
+summary(crime_data_jul_aug_sep$lat_in_m)
+
+#we can now use table() to see how many crimes happened within 200m (latitude)
+table(crime_data_jul_aug_sep$lat_in_m < 200)
+```
+
+You may notice that some distance-in-m values seem odd. In fact, the police.uk data are location-anonymised (i.e. the long, lat pairs are not the original ones from the crime). However, there is decent accuracy even for small geographical areas (see [Tompson et al., 2014](https://www.tandfonline.com/doi/full/10.1080/15230406.2014.972456)).
+
+Now we want to show the very closest crimes as printed on the screen. We'll use a for-loop for that:
+
+```{r}
+#since we don't want to print all 6653 crimes, we select the first 200 crimes for illustration purposes
+
+sub_selection = crime_data_jul_aug_sep[crime_data_jul_aug_sep$lat_in_m < 200, ] #first create a new data.frame with the crimes that are closer than 200m
+
+sub_selection = sub_selection[1:200, ] # select only the first 200 rows
+
+dim(sub_selection)
+
+head(sub_selection)
+```
+
+Let's print some output to the screen in a for loop. In natural language, we want the code to do the following:
+
+- for every crime that is within 25m latitude distance
+    - print the crime type
+    - print the exact distance
+    - once finished, move to the next crime
+
+```{r}
+#in R, this would loop like this:
+
+for(every_crime in 1:nrow(sub_selection)){ #here we have to state the scope of "every_crime". In this case, we want the code to test all crimes that we have in the data.
+  #Note that the placeholder "every_crime" can be replaced with anything you want; a common choice is "i"
+  
+  #we can print to the screen by pasting elements together:
+  #check: ?paste
+   print(paste(sub_selection$crime.type[every_crime], "-->", round(sub_selection$lat_in_m[every_crime], 2), "metres", sep=" ")) #this prints the crime type and the distance (rounded off to 2 decimals)
+  
+}
+```
+
+### END
