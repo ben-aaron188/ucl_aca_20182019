@@ -12,6 +12,11 @@ The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6
 
 You can find the slides to all lectures here (we will post the slides after each lecture).
 
+<!--- Lecture 1: Introduction
+    - [Slides](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html)
+    - [Homework 1: Getting ready for R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
+    - [Homework 2: R in 12 Steps](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/r_in_12_steps.html)-->
+
 
 **Tutorials**
 
