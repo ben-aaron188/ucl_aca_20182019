@@ -324,8 +324,8 @@ Teaching assistant: Felix Soldner
 
 Homework for today: 
 
-1. [Getting ready for R (on Moodle)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
-2. [R for Crime Scientists in 12 Steps](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/r_in_12_steps.html)
+1. [Getting ready for R (on Moodle)](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/getting_ready_for_r.html)
+2. [R for Crime Scientists in 12 Steps](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/r_in_12_steps.html)
 
 Tomorrow's tutorial: "WTF!? session"
 
