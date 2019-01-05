@@ -1,0 +1,320 @@
+---
+title: "How to solve data science problems"
+author: "B Kleinberg"
+date: 8 January 2019
+subtitle: Dept of Security and Crime Science, UCL
+output:
+  html_document:
+    df_print: paged
+---
+
+---
+
+Tutorial 1, Advanced Crime Analysis, BSc Security and Crime Science, UCL
+
+---
+
+## Outcomes of this tutorial
+
+This tutorial shows you how to solve programming problems around data science. Each approach to a research problem is different and so are the problems and errors that you will encounter.
+
+Because the aim of this whole module is not that you become a core R programmer but rather a data science problem-solver, we adhere to a pragmatic approach to programming. That is, we want you to be able to solve data science problems with R using all help and tools available. This means, you do not need to begin with the fundamentals of programming (bottom-up) but instead start with a problem (e.g. scraping all missing persons data) and solve that problem stepwise (top-down).
+
+
+**The pragmatic approach**
+
+- enables you to solve problems quickly
+- fast success
+- puts the problem first
+
+At times, you will feel like "WTF!?" - but don't worry. A central aspect of that pragmatic approach is that you know where to get help.
+
+The aim of this tutorial is to equip you with the skills and knowledge needed to find help to solve (alomost) all problems you will encounter in this module.
+
+## Structure of this tutorial
+
+You will work through a set of problems that you might encounter in the module and your capstone data science project. These problems are deliberately chosen at a difficulty that we do not (yet) expect you to solve. 
+
+For the first problem, the task for you is to try to solve the problem as best as you can in 15 minutes.
+
+After that, we will discuss how you approached that problem and will then for the rest of today's tutorial show you how to approach R problems differently. Your task is then to solve a set of other problems using the help options we showed you.
+
+---
+
+## Problem 1: Reading a full year of police data
+
+### Problem outline
+
+When you're working with open-source data from the [police.uk](https://data.police.uk/data/) data repository, you will be provided with data per month. In the `data/tutorial1/police_data` folder, you will find data for each police-recorded crime for Greater Manchester Police from Dec. 2017 - Nov. 2018 as a csv file.
+
+The problem is that each month is a separate file (e.g. `2017-12-...` for Dec. 2017, etc.). You want to work with all crimes in one file (e.g. do check for temporal effects) so you'd need to 'paste' them together somehow.
+
+One option would be to read all 12 files. However, this is not very useful if the data were to grow (e.g. 100,000 files), so a more 'generative' approach  is needed.
+
+### Task
+
+Read the 12 months of crime data in a way that is extendable to 100,000 files (assuming the same structure). Give this problem 15 minutes.
+
+```{r}
+#write you solution here
+
+
+```
+
+Check you solution: the code should produce a data.frame which has the following dimensions: `dim(your_big_dataframe)` --> 394017 rows, 12 columns.
+
+
+## WTF!? How to solve these kinds of problems?
+
+### Step 1: defining the problem
+
+A starting point when facing a problem like the one above is "reconstructing" the problem through its parts. Rather than solving the whole problem at once (which will often fail), you can start by identifying the "sub-problems" within.
+
+For example, in **Problem 1: Reading a full year of police data**, there a two sub-problems:
+
+1. reading a `.csv` file from a specific path
+2. repeating that read operation and 'binding' the 12 `.csv` files
+
+If you have attempted to read the `.csv` file from a path, you might have encountered three sub-sub-problems: (1) finding a way to get all file names, (2) specifying a long path that takes into account the exact relative location of the files, and (3) pasting all files together. Thus:
+
+1. reading a `.csv` file from a specific path
+2. repeating that read operation and 'binding' the 12 `.csv` files
+    1. finding all files
+    2. getting the relative paths to the files
+    3. combining the files row-wise
+
+Once the problem space is mapped out, you can start solving each of them:
+
+1. reading a `.csv` file from a specific path: **find out how to read a `.csv` file**
+2. repeating that read operation and 'binding' the 12 `.csv` files
+    1. finding all files: **find out how to show all files in a folder/directory**
+    2. getting the relative paths to the file: **find out how to retrieve the relative file path**
+    3. combining the files row-wise: **find out how to combine/append files**
+
+
+### Step 2: problem abstraction
+
+An important skill to solve programming problems is to 'abstract' a particular problem. For example, although the specific problem here is to bunch-read crime data from 12 csv files, a solution that would show you how to bunch-read 2 `.txt` files would probably bring very close to the overall solution.
+
+You will see that problem abstraction is very useful for the other problems in this tutorial.
+
+### Step 3: finding actual solutions to the (sub-) problem(s)
+
+We will focus on four approaches to finding solutions to the problems. Sometimes, the full problem can be solved at once, other times you might have to define the problem carefully because no solutions to that specific problem exist (yet).
+
+Each of the following approaches can be helpful for both the sub-problem route as well as for solving the full problem at once.
+
+#### Proper use of Google
+
+While it may seem obvious to use Google to search for solutions to problems, many struggle to find good search terms for programming problems. 
+
+Some advice for good search queries:
+
+- include the programming language: (ideally) you want to find a solution in your desired programming language, so prepend or append it to your search query string (e.g. "create list r")
+- stick to the necessary bits: no need to search as you would write; a search string "how to create a list in r" is nearly identical to "create list r".
+- if you copy-and-paste an error message, exclude the actual file name or path: the specific file name is irrelevant to the problem and you do not want to reveal details about the files (e.g. when closed-source data) or your computer (e.g. your folder structure or name). This is particularly important when using Stackoverflow (see below).
+
+Let's look at some examples of how to use Google as an inital help:
+
+**For sub-problems**
+
+Here we have used example search queries (and links to them) that should help you solve each of the sub-problems identified above.
+
+1. reading a `.csv` file from a specific path: ["read csv file from path r"](https://www.google.com/search?client=firefox-b-ab&ei=P1MuXJXDC8nYwQLMq7moDw&q=read+csv+file+from+path+r&oq=read+csv+file+from+path+r&gs_l=psy-ab.3...5387.5387..5581...0.0..0.67.67.1......0....1..gws-wiz.......0i71.YPN7TWkTKOo)
+2. repeating that read operation and 'binding' the 12 `.csv` files
+    1. finding all files: ["list files in folder r"](https://www.google.com/search?client=firefox-b-ab&ei=41QuXKXOBIvVwQK1gqC4Bw&q=list+files+in+folder+r&oq=list+files+in+folder+r&gs_l=psy-ab.3..0i203j0i22i30l9.14493.21033..21144...3.0..0.221.2711.32j1j2......0....1..gws-wiz.......0j0i71j35i39j0i67j0i10i203j0i20i263.48zzhdIYLKM)
+    2. getting the relative paths to the file: ["get relative path of file r"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=YEouXKTfE8XZwAKtpa2gDw&q=get+relative+path+of+file+r&oq=get+relative+path+of+file+r&gs_l=psy-ab.3..33i22i29i30l4.5625.11603..11726...0.0..0.215.2098.25j1j1......0....1..gws-wiz.......0j0i71j35i39j0i67j0i203j0i20i263j0i22i30.ic-HLQDebnw)
+    3. combining the files: ["bind files r"](https://www.google.com/search?client=firefox-b-ab&ei=kVYuXJvgG4fdwQL457mICA&q=bind+files+r&oq=bind+files+r&gs_l=psy-ab.3..0i22i30l2j0i22i10i30j0i22i30l2j0i22i10i30j0i22i30l2.19368.24264..24375...12.0..0.90.892.12......0....1..gws-wiz.......0j0i71j35i39j0i67j0i20i263j0i203j0i10i203j0i10.Gk_DB2djXXE), ["append files from directory r"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=DlcuXK3oG4TcwQKm1bnIAQ&q=append+files+from+directory+r&oq=append+files+from+directory+r&gs_l=psy-ab.3..33i22i29i30l8.65791.71792..71932...0.0..0.121.2177.28j1......0....1..gws-wiz.......0j0i71j35i39j0i67j0i20i263j0i203j0i22i30._D9U35DbiR0)
+
+
+**For error messages**
+
+Often (especially at the beginning) there will be error messages as a result of your code. In the current example, it's possible that you got an error like `cannot open file '2017-12-greater-manchester-street.csv': No such file or directoryError in file(file, "rt") : cannot open the connection`
+
+To fix the code, you must know what the error is telling you. A simple way to find out is copy-and-pasting the error message into Google.
+
+Note the difference between these two:
+
+- ["cannot open file '2017-12-greater-manchester-street.csv': No such file or directoryError in file(file, "rt") : cannot open the connection"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=flcuXLvuM4bPwALJx6moDw&q=cannot+open+file+%272017-12-greater-manchester-street.csv%27%3A+No+such+file+or+directoryError+in+file%28file%2C+%22rt%22%29+%3A+cannot+open+the+connection&oq=cannot+open+file+%272017-12-greater-manchester-street.csv%27%3A+No+such+file+or+directoryError+in+file%28file%2C+%22rt%22%29+%3A+cannot+open+the+connection&gs_l=psy-ab.3..0i71l8.143013.143013..143241...0.0..0.0.0.......0....1j2..gws-wiz.umkdhuRKa-o)
+- ["No such file or directory Error in file(file, "rt") : cannot open the connection r"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=G1guXOOnNszPwAKjmZhw&q=No+such+file+or+directoryError+in+file%28file%2C+%22rt%22%29+%3A+cannot+open+the+connection+r&oq=No+such+file+or+directoryError+in+file%28file%2C+%22rt%22%29+%3A+cannot+open+the+connection+r&gs_l=psy-ab.3..0i10i30.57240.58329..58532...0.0..0.93.252.3......0....1j2..gws-wiz.......0i10i203.mSbqqrtQZXQ)
+
+The second one will bring much more meaningful results because it excludes the file name and reduces the error message to its essence.
+
+**For the full problem**
+
+You can of course always attempt to find solutions to the problem as a whole. This can often work for general problems (e.g. file input/output) and common operations (e.g. string operations), but will likely fail once you work on your own project.
+
+For the current problem, let's try to solve it all at once:
+
+- ["read multiple csv files r"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=QVkuXPPXAZLJwQLM5I6YBg&q=read+multiple+csv+files+r&oq=read+multiple+csv+files+r&gs_l=psy-ab.3..0i7i30l4j0i8i30l4.1528.2271..2740...0.0..0.78.142.2......0....1..gws-wiz.......0i71.ebCMU7dEI5M)
+- ["read files from folder r"](https://www.google.com/search?client=firefox-b-ab&biw=1440&bih=803&ei=YFkuXJLjAYTNwAKG4qugCA&q=read+files+from+folder+r&oq=read+files+from+folder+r&gs_l=psy-ab.3..0j0i8i30l9.17712.17712..18202...0.0..0.62.62.1......0....1..gws-wiz.......0i71.KhD7TRCdkhc)
+
+You see that these search results will bring you to solutions that are very close to the once you're looking for (e.g. [this one](https://stackoverflow.com/questions/23995384/read-and-rbind-multiple-csv-files)). You still have to add the "relative path" aspect to the final solution. This highlights that for more specific problems, it's often useful to identify the sub-problems.
+
+
+#### Stackoverflow
+
+You will have noticed that many (most) of Google's search results point to the website [stackoverflow.com](https://stackoverflow.com/). Stackoverflow is a large Q&A platform for programmers where users post programming questions and get answers from experts around the world.
+
+Often, questions are answered [within minutes](https://stackoverflow.com/questions/27044727/removing-characters-from-string-in-r) but it also happens that questions remain unanswered. The better the question, the higher the chance of getting a high-quality answer. If you cannot find a solution to your problem even after trying the sub-problem path, or cannot find a solution to a sub-problem, you could consider posting a question on stackoverflow yourself. Some advice on how to do this:
+
+- provide example code [EXAMPLE](https://stackoverflow.com/questions/38942872/write-column-values-to-file-with-matching-value-from-second-column-in-r)
+    - ! read [this primer](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example) on reproducible R code
+- use the problem it its purest (most abstract) form [EXAMPLE](https://stackoverflow.com/questions/27850344/coalesce-two-string-columns-with-alternating-missing-values-to-one)
+- be brief [EXAMPLE](https://stackoverflow.com/questions/4605206/drop-data-frame-columns-by-name) 
+- check for related questions (this will be suggested by on the right-side while you type your question automatically)
+
+Who knows, maybe at some point you can help others find solutions to their (yet) [unanswered R questions](https://stackoverflow.com/unanswered/tagged/r).
+
+#### Using R's built-in help
+
+If you already have a function from R core or an installed R package in mind, you can check R's help for details on the function and its parameters. Calling the R help works by using the `?`.
+
+In the example, suppose you know that `list.files(...)` is what you need to list the files in a directory but you're not quite sure on how to get the relative path: it's then worth checking this with:
+
+```{r}
+?list.files
+```
+
+This help file shows you that there is an argument called `full.names` in the `list.files(...)` function which is 
+
+  > a logical value. If TRUE, the directory path is prepended to the file names to give a relative file path. If FALSE, the file names (rather than paths) are returned.
+  
+Under **"Usage"** you see what each of the parameters are set to by default:
+
+```{r results="hide"}
+#from the help file:
+list.files(path = "."
+           , pattern = NULL
+           , all.files = FALSE
+           , full.names = FALSE
+           , recursive = FALSE
+           , ignore.case = FALSE
+           , include.dirs = FALSE
+           , no.. = FALSE
+           )
+```
+
+#### Re-using code
+
+Another approach that you will likely use once you have produced more code in the next weeks, is re-using code.
+
+Suppose you have the working code for the current example. Now even if the problem changes, the code mights still help you to solve a related problem.
+
+**Example:** Suppose your new problem is to read all .txt files (from a folder with many different file formats) and bind them together column-wise (i.e. adding a column for each new file).
+
+You can solve this problem by re-using the code since the structure of the problem is the same with a few minor additions:
+
+1. ~~reading a `.csv` file from a specific path~~ reading a `.txt` file from a specific path
+    1. **NEW:** select files by file format (select only `.txt` files)
+2. ~~repeating that read operation and 'binding' the 12 `.csv` files~~ repeating that read operation for all `.txt` files and 'binding' them
+    1. finding all files
+    2. getting the relative paths to the files
+    3. combining the files **column-wise**
+
+You find a folder with files where each contains a column of 100 variables at `./data/tutorial1/mixed_file_formats`. Read and column-bind only the `.txt` files. Modify the code below to solve the new problem.
+
+
+```{r}
+all_files = list.files(path = './data/tutorial1/police_data'
+                       , full.names = T)
+
+
+big_data_frame = do.call(what = rbind
+                         , args = lapply(X = all_files
+                                         , FUN = function(x){
+                                           read.csv(x
+                                                    , header = T
+                                                    )
+                                           }
+                                         )
+                         )
+```
+
+
+---
+
+You can find the solution to each problem (incl. Problem 1) in [this R Notebook](LINK). We encourage you to only check the solutions after you have solved the problem. We assume that you attempt to solve the problems yourself with the strategies outlined. In doin so, you will acquire the problem-solving skills that are necessary to write the code in the next weeks and for your capstone project.
+
+---
+
+## Problem 2: Calculation with dates
+
+### Problem outline
+
+In some cases, you might be interested in temporal effects (e.g. how language use develops over time) which might require you to do arithmetic operations with dates (e.g. calculating the difference in minutes between two dates).
+
+### Task
+
+In the folder `./data/tutorial1/vlogs_data` you can find an `.RData` file called `vlogs_data.RData`. This file contains a dataframe with four columns expressing YouTube metadata (the YouTuber's name, the video URL, number of views and date of the video posting) from the ~~alt-right~~ controverse YouTuber [Milos Yiannopulos](https://www.youtube.com/user/yiannopoulosm/videos) and popular vlogger [Caset Neistat](https://www.youtube.com/user/caseyneistat/videos). Suppose you're interested in comparing the view count: a problem you'd encounter is that view count might be highly correlated to the days the video is on the platform.
+
+Your task is to calculate a new variable (column) that is called `view_count_corrected` and is equal to the original view count divided by the number of days the video is active. All videos were scraped on the 30th of November 2018 (use this date as the reference date).
+
+```{r}
+#your R code here
+
+```
+
+
+## Problem 3: Cleaning text data
+
+### Problem outline
+
+Later in this module, you will work with text data. This source of data is one of the most exciting ones ~~but~~ because it is very messy and unstructured. This means that you often have to spend a considerable amount of time to clean the data.
+
+### Task
+
+Read the `.csv` file called `messy_text_data.csv` from the folder `./data/tutorial1/messy_text`. You can see that each row contains two variables: the original string (names of the top 5 most wanted terrorists by the FBI) and the cleaned string. Your task is to reproduce the cleaned string from the original one. You can check your work against then `cleaned_string` column. Name your output variable `cleaned_string_check`. 
+
+
+```{r}
+#your R code here
+
+```
+
+
+## Problem 4: Writing data to individual files
+
+### Problem outline
+
+Another issue you could encounter when dealing with text data (e.g. when sharing text data) is that of writing data "in reverse" (i.e. writing from a dataframe to individual files).
+
+### Task
+
+In the folder `./data/tutorial1/vlogs_data_2` you can find the `.RData` file `vlogs_data_with_text.RData`. This file loads the dataframe called `vlogs_with_text` which contains a vlog ID (`channel_vlog_id`), the video URL (`url`), and the actual transcript from the vlog. Your task is to write each vlog transcript to a separate `.txt` file. Each file should contain only the transcript and should have as a file name the `channel_vlog_id`.
+
+Tip: you'd need to loop through the dataframe and then use the standard function to write a table (`write.table(...)`).
+
+```{r}
+#your R code here
+
+```
+
+
+## Problem 5: Transforming wide data to long data
+
+### Problem outline
+
+A common data transformation problem is that of converting wide data to long data [(brief explainer)](https://en.wikipedia.org/wiki/Wide_and_narrow_data). Often, you want to analyse the data using factors instead of different columns. For example, rather than having one column for burglaries and one for violent crimes per city, you'd rather have one column indicating the crime type (which is either burglaries or violent crimes) and another indicating the count. This kind of dataframe representation  is in line with [Wickhams (2014)](http://vita.had.co.nz/papers/tidy-data.pdf) idea  of tidy data.
+
+
+### Task
+
+Read the `.txt` file called `crime_data.txt` from the folder `./data/tutorial1/wide_data`. You will notice that the data is in the wide format (i.e. having different columns for burglaries and violent crimes). Your task is to convert this wide data frame to a long dataframe where:
+
+- a new 'key' column is created called `crime_type`
+- a new 'value' column is created called `count`
+
+```{r}
+#your R code here
+
+```
+
+
+---
+
+<img src="./img/twitter_capture_code.png" height="70%", width="70%">
+
+## END
+
+---

@@ -1,0 +1,311 @@
+---
+title: "SOLUTIONS - How to solve data science problems"
+author: "B Kleinberg"
+date: 8 January 2019
+subtitle: Dept of Security and Crime Science, UCL
+output:
+  html_document:
+    df_print: paged
+---
+
+---
+
+Solutions for Tutorial 1, Advanced Crime Analysis, BSc Security and Crime Science, UCL
+
+---
+
+
+## Problem 1: Reading a full year of police data
+
+### Problem outline
+
+When you're working with open-source data from the [police.uk](https://data.police.uk/data/) data repository, you will be provided with data per month. In the `data/tutorial1/police_data` folder, you will find data for each police-recorded crime for Greater Manchester Police from Dec. 2017 - Nov. 2018 as a csv file.
+
+The problem is that each month is a separate file (e.g. `2017-12-...` for Dec. 2017, etc.). You want to work with all crimes in one file (e.g. do check for temporal effects) so you'd need to 'paste' them together somehow.
+
+One option would be to read all 12 files. However, this is not very useful if the data were to grow (e.g. 100,000 files), so a more 'generative' approach  is needed.
+
+### Task
+
+Read the 12 months of crime data in a way that is extendable to 100,000 files (assuming the same structure). Use only core R functions for this (no packages).
+
+```{r}
+all_files = list.files(path = './data/tutorial1/police_data'
+                       , full.names = T)
+
+# this shows all files in the folder
+```
+
+```{r}
+#We can use a solution with the following parts:
+#1. reading all files form the all_files vector
+#2. binding these input data.frames together row-wise
+
+#Solution for part 1:
+
+#Do not run this because it will print all dataframes to your screen
+# lapply(X = all_files
+#        , FUN = function(x){
+#          read.csv(x
+#                   , header = T
+#          )
+#          }
+#        )
+```
+
+```{r}
+#Solution for part 2:
+
+?do.call
+
+#We use this function to call the rbind function (binding data row-wise)
+#We will rbind the output from the args argument.
+
+big_data_frame = do.call(what = rbind
+                         , args = lapply(X = all_files
+                                         , FUN = function(x){
+                                           read.csv(x
+                                                    , header = T
+                                                    )
+                                           }
+                                         )
+                         )
+
+head(big_data_frame)
+```
+
+
+```{r}
+dim(big_data_frame)
+```
+
+---
+
+**Example:** Suppose your new problem is to read all .txt files (from a folder with many different file formats) and bind them together column-wise (i.e. adding a column for each new file).
+
+You can solve this problem by re-using the code since the structure of the problem is the same with a few minor additions:
+
+1. ~~reading a `.csv` file from a specific path~~ reading a `.txt` file from a specific path
+    1. **NEW:** select files by file format (select only `.txt` files)
+2. ~~repeating that read operation and 'binding' the 12 `.csv` files~~ repeating that read operation for all `.txt` files and 'binding' them
+    1. finding all files
+    2. getting the relative paths to the files
+    3. combining the files **column-wise**
+
+You find a folder with files where each contains a column of 100 variables at `./data/tutorial1/mixed_file_formats`. Read and column-bind only the `.txt` files.
+
+
+```{r}
+all_files = list.files(path = './data/tutorial1/mixed_file_formats'
+                       , full.names = T
+                       , pattern = "*.txt")
+
+# this shows all files in the folder
+```
+
+```{r}
+
+big_data_frame_2 = do.call(what = cbind
+                         , args = lapply(X = all_files
+                                         , FUN = function(x){
+                                           read.csv(x
+                                                    , header = F
+                                                    )
+                                           }
+                                         )
+                         )
+
+head(big_data_frame_2)
+```
+
+```{r}
+dim(big_data_frame_2)
+```
+
+---
+
+## Problem 2: Calculation with dates
+
+### Problem outline
+
+In some cases, you might be interested in temporal effects (e.g. how language use develops over time) which might require you to do arithmetic operations with dates (e.g. calculating the difference in minutes between two dates).
+
+### Task
+
+In the folder `./data/tutorial1/vlogs_data` you can find an `.RData` file called `vlogs_data.RData`. This file contains a dataframe with four columns expressing YouTube metadata (the YouTuber's name, the video URL, number of views and date of the video posting) from the ~~alt-right~~ controverse YouTuber [Milos Yiannopulos](https://www.youtube.com/user/yiannopoulosm/videos) and popular vlogger [Caset Neistat](https://www.youtube.com/user/caseyneistat/videos). Suppose you're interested in comparing the view count: a problem you'd encounter is that view count might be highly correlated to the days the video is on the platform.
+
+Your task is to calculate a new variable (column) that is called `view_count_corrected` and is equal to the original view count divided by the number of days the video is active. All videos were scraped on the 30th of November 2018 (use this date as the reference date).
+
+```{r}
+#1: load the RData file
+
+load('./data/tutorial1/vlogs_data/vlogs_data.RData')
+
+head(vlogs_data)
+dim(vlogs_data)
+```
+
+```{r error=T}
+#2: calculate the difference between the `data_posted` column and the reference date
+#Let's creata a variable with the reference date as a "Date" variable in R
+reference_date = as.Date('2018-11-30')
+
+#Let's create a new column: days_until_reference
+vlogs_data$days_until_reference = as.numeric(reference_date - vlogs_data$date_posted)
+```
+
+You'll see that R does return an error here: if you read the error message carefully, you see that it has trouble with the substraction due to different types of variables.
+
+We need to convert the `vlogs_data$date_posted` column to the `Date` type too.
+
+```{r}
+vlogs_data$date_posted = as.Date(vlogs_data$date_posted)
+```
+
+Now try again:
+
+```{r}
+vlogs_data$days_until_reference = as.numeric(reference_date - vlogs_data$date_posted)
+head(vlogs_data)
+```
+
+```{r}
+#3. correct the view count
+vlogs_data$view_count_corrected = vlogs_data$view_count/vlogs_data$days_until_reference
+head(vlogs_data)
+```
+
+
+## Problem 3: Cleaning text data
+
+### Problem outline
+
+Later in this module, you will work with text data. This source of data is one of the most exciting ones ~~but~~ because it is very messy and unstructured. This means that you often have to spend a considerable amount of time to clean the data.
+
+### Task
+
+Read the `.csv` file called `messy_text_data.csv` from the folder `./data/tutorial1/messy_text`. You can see that each row contains two variables: the original string (names of the top 5 most wanted terrorists by the FBI) and the cleaned string. Your task is to reproduce the cleaned string from the original one. You can check your work against then `cleaned_string` column. Name your output variable `cleaned_string_check`. 
+
+
+```{r}
+#1. read the file
+
+text_data = read.csv('./data/tutorial1/messy_text/messy_text_data.csv'
+                     , header=T)
+
+text_data
+```
+
+```{r}
+#2. identify the "messy characters"
+
+#you can see that it is here only the < and > that are problematic
+```
+
+There are ways that automatically find "non-text"" characters (e.g. [in this answer](https://stackoverflow.com/a/27044790/3421089)).
+
+```{r}
+#3. remove the < and >
+# Install the stringr package!
+library(stringr)
+text_data$cleaned_string_check = str_replace_all(text_data$original_string, "[><]", "")
+
+#an alternative with base R
+#text_data$cleaned_string_check = gsub('[><]', '', text_data$original_string)
+
+#4. test whether the two cleaned columns are identical
+
+text_data$cleaned_string == text_data$cleaned_string_check
+```
+
+Note: the `stringr` package is very useful for dealing with text data and we will use it later in this module.
+
+Problem 4: Writing data to individual files
+
+### Problem outline
+
+Another issue you could encounter when dealing with text data (e.g. when sharing text data) is that of writing data "in reverse" (i.e. writing from a dataframe to individual files).
+
+### Task
+
+In the folder `./data/tutorial1/vlogs_data_2` you can find the `.RData` file `vlogs_data_with_text.RData`. This file loads the dataframe called `vlogs_with_text` which contains a vlog ID (`channel_vlog_id`), the video URL (`url`), and the actual transcript from the vlog. Your task is to write each vlog transcript to a separate `.txt` file. Each file should contain only the transcript and should have as a file name the `channel_vlog_id`.
+
+Tip: you'd need to loop through the dataframe and then use the standard function to write a table (`write.table(...)`).
+
+```{r results="hide"}
+#1. load the data
+load('./data/tutorial1/vlogs_data_2/vlogs_data_with_text.RData')
+
+#2. find the way to write one text to a file
+
+#this will write the 10th text to a file
+write.table(vlogs_with_text$text[10]
+              , file = vlogs_with_text$channel_vlog_id[10]
+              , col.names = FALSE
+              , row.names = FALSE
+              , append=F
+              )
+```
+
+For more on data output from R, have a look at [this neat illustration](https://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html).
+
+```{r results="hide"}
+#3. build a loop around the write.table function from above
+
+lapply(seq(nrow(vlogs_with_text)), function(i){
+  write.table(vlogs_with_text$text[i]
+              , file = vlogs_with_text$channel_vlog_id[i]
+              , col.names = FALSE
+              , row.names = FALSE
+              , append=F
+              )
+  })
+```
+
+
+Note how the code above uses `lapply` to loop through each row. You could also re-write this with a for loop but [`lapply` generally outperforms the `for ... in` way on larger datasets](https://stackoverflow.com/questions/42393658/lapply-vs-for-loop-performance-r).
+
+Problem 5: Transforming wide data to long data
+
+### Problem outline
+
+A common data transformation problem is that of converting wide data to long data [(brief explainer)](https://en.wikipedia.org/wiki/Wide_and_narrow_data). Often, you want to analyse the data using factors instead of different columns. For example, rather than having one column for burglaries and one for violent crimes per city, you'd rather have one column indicating the crime type (which is either burglaries or violent crimes) and another indicating the count. This kind of dataframe representation  is in line with [Wickhams (2014)](http://vita.had.co.nz/papers/tidy-data.pdf) idea  of tidy data.
+
+
+### Task
+
+Read the `.txt` file called `crime_data.txt` from the folder `./data/tutorial1/wide_data`. You will notice that the data is in the wide format (i.e. having different columns for burglaries and violent crimes). Your task is to convert this wide data frame to a long dataframe where:
+
+- a new 'key' column is created called `crime_type`
+- a new 'value' column is created called `count`
+
+```{r}
+#1. read the data
+crime_data = read.table('./data/tutorial1/wide_data/crime_data.txt'
+                        , header=T)
+
+crime_data
+```
+
+
+```{r}
+#2. use the tidyr package
+library(tidyr)
+
+crime_data_long = gather(data = crime_data
+                         , key = crime_type
+                         , value = count
+                         , burglaries:violentcrimes
+                         , factor_key=TRUE
+                         )
+
+crime_data_long
+```
+
+Note: you will likely use the `tidyr` package throughout this module, so it's good to have it installed from the start.
+
+More details on the `gather` function and its complement `spread` can be found in this [Cookbook for R page](http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/).
+
+## END
+
+---

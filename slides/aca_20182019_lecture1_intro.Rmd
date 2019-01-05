@@ -11,22 +11,24 @@ output:
     center: true
 ---
 
-## Welcome {data-background="./img/ucl_artwork/ucl-banner-land-darkblue-rgb.png" data-background-size="70%" data-background-position="top" data-background-opacity="1"}
+##  {data-background="./img/ucl_artwork/ucl-banner-land-darkblue-rgb.png" data-background-size="70%" data-background-position="top" data-background-opacity="1"}
+
+</br>
 
 Advanced Crime Analysis
 
-Computational Crime Science
+</br>
 
 Data Science for Crime Science
 
-### What is this?
+</br>
+
+**What is this? and Why do we need it?**
 
 
-## Why not just "[fancy adjective] Crime Analysis"?
+## Why not just "Crime Analysis"?
 
-byte KB MB GB TB ZB ...
-
-Per second ... per day
+<img data-src="./img/data.gif">
 
 
 
