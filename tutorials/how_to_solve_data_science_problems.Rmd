@@ -234,7 +234,7 @@ big_data_frame = do.call(what = rbind
 
 ---
 
-You can find the solution to each problem (incl. Problem 1) in [this R Notebook](LINK). We encourage you to only check the solutions after you have solved the problem. We assume that you attempt to solve the problems yourself with the strategies outlined. In doin so, you will acquire the problem-solving skills that are necessary to write the code in the next weeks and for your capstone project.
+You can find the solution to each problem (incl. Problem 1) in [this R Notebook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/23daa895804875fe9606667a81acd54c7103ce95/tutorials/solutions_how_to_solve_data_science_problems.html). We encourage you to only check the solutions after you have solved the problem. We assume that you attempt to solve the problems yourself with the strategies outlined. In doin so, you will acquire the problem-solving skills that are necessary to write the code in the next weeks and for your capstone project.
 
 ---
 

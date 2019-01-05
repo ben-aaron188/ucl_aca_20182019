@@ -13,14 +13,16 @@ The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6
 You can find the slides to all lectures here (we will post the slides after each lecture).
 
 <!--- Lecture 1: Introduction
-    - [Slides](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html)
-    - [Homework 1: Getting ready for R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
-    - [Homework 2: R in 12 Steps](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/r_in_12_steps.html)-->
+    - [Slides](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/23daa895804875fe9606667a81acd54c7103ce95/slides/aca_20182019_lecture1_intro.html)
+    - [Homework 1: Getting ready for R](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/getting_ready_for_r.html)
+    - [Homework 2: R in 12 Steps](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/r_in_12_steps.html)-->
 
 
 **Tutorials**
 
 The R notebooks, slides, data, and code for the tutorials will be available in this place.
+
+<!--- Tutorial 1: [How to solve R data science problems](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/23daa895804875fe9606667a81acd54c7103ce95/tutorials/how_to_solve_data_science_problems.html)-->
 
 
 ---
