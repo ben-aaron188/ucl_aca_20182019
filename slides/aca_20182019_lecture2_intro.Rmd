@@ -1,0 +1,65 @@
+---
+title: "Intro to Data Science for Crime Scientists"
+subtitle: "Advanced Crime Analysis UCL"
+author: Bennett Kleinberg
+date: 7 Jan 2019
+#slide_level: 2
+output:
+  revealjs::revealjs_presentation:
+    theme: simple
+    highlight: zenburn
+    center: true
+---
+
+##  {data-background="./img/ucl_artwork/ucl-banner-land-darkblue-rgb.png" data-background-size="70%" data-background-position="top" data-background-opacity="1"}
+
+
+Getting data from the Internet
+
+Examples
+
+Types of web-scraping
+
+Using APIs from Twitter and YouTube
+
+Understanding an API
+
+Harnessing the really ‘juicy’ data of the Internet
+
+The basic structure of a webpage (HTML, CSS, Javascript)
+
+Exploiting the Internet’s structure for web-scraping
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## What's next?
+
+Homework for today: 
+
+1. [Getting ready for R (on Moodle)](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/getting_ready_for_r.html)
+2. [R for Crime Scientists in 12 Steps](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/ce089fb8ee6e453c0c33683d70b1c88e18ca7c02/homework/r_in_12_steps.html)
+
+Next week: Web scraping 2
+
