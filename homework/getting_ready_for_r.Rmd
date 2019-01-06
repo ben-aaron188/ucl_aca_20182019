@@ -26,7 +26,7 @@ We strongly encourage you to bring your own laptop to the tutorials. You will be
 
 R Studio is the software that we will sue to write, develop and run R commands.
 
-Please follow this guide [here](http://web.cs.ucla.edu/~gulzar/rstudio/) to install R Studio (and the required core R) on your machine.
+Please follow this guide [here (http://web.cs.ucla.edu/~gulzar/rstudio/)](http://web.cs.ucla.edu/~gulzar/rstudio/) to install R Studio (and the required core R) on your machine.
 
 ## Customising R Studio
 
