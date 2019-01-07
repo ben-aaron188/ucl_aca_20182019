@@ -11,7 +11,7 @@ The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6
 
 #### Week 1
 
-- Lecture 1: Introduction [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html)
+- Lecture 1: Introduction [(slides html)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture1_intro.pdf)
 - Homework 1: [Getting ready for R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
 - Homework 2: [R in 12 Steps](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/r_in_12_steps.html)
 
