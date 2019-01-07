@@ -24,6 +24,18 @@ Using APIs from Twitter and YouTube
 
 Understanding an API
 
+Others
+
+- crimedata wrapper
+
+```{r}
+library(crimedata)
+crime_data = get_crime_data(years = 2016:2017
+                            , cities = c("New York", "Los Angeles"))
+
+```
+
+
 Harnessing the really ‘juicy’ data of the Internet
 
 The basic structure of a webpage (HTML, CSS, Javascript)
