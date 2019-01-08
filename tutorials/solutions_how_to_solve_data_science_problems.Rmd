@@ -30,6 +30,10 @@ One option would be to read all 12 files. However, this is not very useful if th
 Read the 12 months of crime data in a way that is extendable to 100,000 files (assuming the same structure). Use only core R functions for this (no packages).
 
 ```{r}
+?list.files
+all_files = list.files(path = './data/tutorial1/police_data')
+
+
 all_files = list.files(path = './data/tutorial1/police_data'
                        , full.names = T)
 
@@ -44,13 +48,13 @@ all_files = list.files(path = './data/tutorial1/police_data'
 #Solution for part 1:
 
 #Do not run this because it will print all dataframes to your screen
-# lapply(X = all_files
-#        , FUN = function(x){
-#          read.csv(x
-#                   , header = T
-#          )
-#          }
-#        )
+a = lapply(X = all_files
+       , FUN = function(x){
+         read.csv(x
+                  , header = T
+         )
+         }
+       )
 ```
 
 ```{r}
@@ -73,6 +77,16 @@ big_data_frame = do.call(what = rbind
 
 head(big_data_frame)
 ```
+
+```{r}
+#additional solution with using the "a" list of dataframes from line 51-57
+
+library(data.table)
+big_data_frame_2 = rbindlist(a)
+
+dim(big_data_frame_2)
+```
+
 
 
 ```{r}

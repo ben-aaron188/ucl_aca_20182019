@@ -1,8 +1,8 @@
 ---
-title: "Intro to Data Science for Crime Scientists"
+title: "Web scraping 1"
 subtitle: "Advanced Crime Analysis UCL"
 author: Bennett Kleinberg
-date: 7 Jan 2019
+date: 14 Jan 2019
 #slide_level: 2
 output:
   revealjs::revealjs_presentation:
@@ -24,6 +24,11 @@ Using APIs from Twitter and YouTube
 
 Understanding an API
 
+- demo Twitter API with R
+
+- demo YouTube API with R
+
+
 Others
 
 - crimedata wrapper
@@ -36,11 +41,25 @@ crime_data = get_crime_data(years = 2016:2017
 ```
 
 
+
+---
+
 Harnessing the really ‘juicy’ data of the Internet
 
 The basic structure of a webpage (HTML, CSS, Javascript)
 
+- html page
+- tags
+- classes
+- ids
+
+- examples of html structures
+- how to see the html structure
+
 Exploiting the Internet’s structure for web-scraping
+
+- understanding the structure
+
 
 
 
