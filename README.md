@@ -28,10 +28,10 @@ Tutorial:
 
 ---
 
-<!--#### Week 2
+#### Week 2
 
-- Lecture 1:  [(slides)]()
-- Homework: [...]()
+- Lecture 2:  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html)
+- Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html)
 
 Required reading/preparation:
 
