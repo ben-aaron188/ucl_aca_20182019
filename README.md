@@ -30,7 +30,7 @@ Tutorial:
 
 #### Week 2
 
-- Lecture 2:  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html)
+- Lecture 2: APIs and web-scraping  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html)
 - Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html)
 
 Required reading/preparation:
@@ -44,47 +44,26 @@ Suggested reading:
 - Founta, A.-M., Djouvas, C., Chatzakou, D., Leontiadis, I., Blackburn, J., Stringhini, G., … Kourtellis, N. (2018). Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior. ArXiv:1802.00393 [Cs]. Retrieved from [http://arxiv.org/abs/1802.00393](http://arxiv.org/abs/1802.00393)
 
 
+#### Week 3
 
-No tutorial.
+- Lecture 3:  Webscraping with R [(slides to come)]
+- Homework: [Getting API access]
 
-
------>
-
-<!--#### Week 2
-
-- Lecture 2:  [(slides)]()
-- Homework: [...]()
-
-Required reading/preparation:
+Required reading:
 
 - Mozilla MDN (2018). HTML basics. Retrieved January 6, 2019, from [https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
-- 
+- R Web Scraping Tutorial with rvest. (2018, February 27). Retrieved January 20, 2019, from [https://www.datacamp.com/community/tutorials/r-web-scraping-rvest](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest)
+- Solares, J. R. A. (2017, August 2). Web scraping tutorial in R. Retrieved January 20, 2019, from [https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32](https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32)
+- Dsilva, D. (2018, May 4). Learn To Create Your Own Datasets — Web Scraping in R. Retrieved January 20, 2019, from [https://towardsdatascience.com/learn-to-create-your-own-datasets-web-scraping-in-r-f934a31748a5](https://towardsdatascience.com/learn-to-create-your-own-datasets-web-scraping-in-r-f934a31748a5)
+- Hadley Wickham (2016). rvest: Easily Harvest (Scrape) Web Pages. R package version 0.3.2. [https://CRAN.R-project.org/package=rvest](https://CRAN.R-project.org/package=rvest), [pdf](https://cran.r-project.org/web/packages/rvest/rvest.pdf)
 
-
-
-No tutorial.
-
-
------>
-
-<!--#### Week 3
-
-- Lecture 3:  [(slides)]()
-- Homework: [...]()
-
-Required reading/preparation:
+Suggested reading:
 
 - ElSherief, M., Kulkarni, V., Nguyen, D., Wang, W. Y., & Belding, E. (2018). Hate Lingo: A Target-based Linguistic Analysis of Hate Speech in Social Media. ArXiv:1804.04257 [Cs]. Retrieved from [http://arxiv.org/abs/1804.04257](http://arxiv.org/abs/1804.04257)
-- 
-
-- 
 
 
+Tutorial: [Webscraping in R]
 
-No tutorial.
-
-
------>
 
 
 
