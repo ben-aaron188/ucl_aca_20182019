@@ -30,7 +30,7 @@ Tutorial:
 
 #### Week 2
 
-- Lecture 2: APIs and web-scraping  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html)
+- Lecture 2: APIs and web-scraping  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture2_apis.pdf)
 - Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html)
 
 Required reading/preparation:
