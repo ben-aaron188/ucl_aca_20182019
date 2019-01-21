@@ -3,7 +3,7 @@ title: "Webscraping in R"
 author: "B Kleinberg"
 date: 22 January 2019
 subtitle: Dept of Security and Crime Science, UCL
-output: html_document
+output: html_notebook
 ---
 
 ---
@@ -14,7 +14,111 @@ Tutorial 2, Advanced Crime Analysis, BSc Security and Crime Science, UCL
 
 ## Aim of this tutorial
 
+This tutorial will help you consolidate some techniques presented and used earlier in this module about APIs and web-scraping. You will also be able to start working on your own webscraping programme that might be useful for your final project.
 
-## Structure
 
-## 
+## Task 1: Geographical variation of public perception on Twitter
+
+Use Twitter's API to retrieve Tweets about "crime" in these cities: (1) New York City. (2) London, (3) Los Angeles, (4) Austin, Texas, and (5) Dublin.
+
+Store all tweets in a single dataframe with a column identifying the city.
+
+```{r}
+#your code comes here
+```
+
+
+## Task 2: Using YouTube's API to analyse highly controversial content
+
+Recently, the razor manufacturer Gilette released a video called [We Believe: The Best Men Can Be](https://www.youtube.com/watch?v=koPmuEyP3a0). That video has been extremely controversial and has evoked a number considerably opinioted responses.
+
+Use YouTube's API to gether information about that video. _Note: retrieving all comments will exceed your quota and will take a very long time._
+
+```{r}
+#your code comes here
+```
+
+
+## Task 3: Retrieving the public opinion on that controversial topic.
+
+You might not that some comments below that video are on the boundary of hate speech or even in full-blown aggressive language.
+
+Let's look at a different source of opinion about that video. This [recent opinion article](https://www.theguardian.com/commentisfree/2019/jan/16/men-masculinity-gillette-advertisement) in the Guardian discusses the video.
+
+Try to access the comments made to that video and store them in a dataframe along with a unique identifier.
+
+```{r}
+#your code comes here
+```
+
+
+## Task 4: Recreate the lyrics scraping example with your own artist selection
+
+In [this blog](https://towardsdatascience.com/learn-to-create-your-own-datasets-web-scraping-in-r-f934a31748a5) you can see stepwise how to scrape data from popular music artists and then access the lyrics of their songs.
+
+(Re-)use the code from the above blog post and re-do their scraping process using your own artist (charts) selection.
+
+```{r}
+#your code comes here
+```
+
+
+## Task 5: Creating a local database of missing persons
+
+The problem of missing persons in the UK is increasingly recognised in academic research. However, to date not curated database exists that researchers can easily download to query the data of people reported missing.
+
+_Note that some of the images are from dead persons and might be confrontational to look at._
+
+Your task is to create a local database on your computer of missing females. Use this urlc [(https://www.missingpersons.police.uk/en-gb/case-search/9444442)](https://www.missingpersons.police.uk/en-gb/case-search/9444442) as a starting point and retrieve the (1) gender, (2) age, (3) ethnicity and (4) circumstances details of the first three pages of search results.
+
+```{r}
+#your code comes here
+```
+
+
+## Task 6: Web-scraping for the detection of potentially suspicious items
+
+You can use web-scraping to look for suspicious items on online market places. Let's take the example of clothing from the "Supreme" brand on gumtree.
+
+You can access the search results for `supreme hoodie` here: [https://www.gumtree.com/search?featured_filter=false&urgent_filter=false&sort=date&search_scope=false&photos_filter=false&search_category=all&q=supreme+hoodie&tq=%7B%22i%22%3A%22supreme%22%2C%22s%22%3A%22supreme+hoodie%22%2C%22p%22%3A9%2C%22t%22%3A14%7D&search_location=](https://www.gumtree.com/search?featured_filter=false&urgent_filter=false&sort=date&search_scope=false&photos_filter=false&search_category=all&q=supreme+hoodie&tq=%7B%22i%22%3A%22supreme%22%2C%22s%22%3A%22supreme+hoodie%22%2C%22p%22%3A9%2C%22t%22%3A14%7D&search_location=)
+
+Your task now is to scrape the (1) price, (2) title, and (3) location of each ad.
+
+```{r}
+#your code comes here
+```
+
+
+## Task 7: Start with your own web-scraping
+
+Choose a website that you want to scrape (e.g. for your final project for this module). In this task, try to understand the structure of that website and how you can retrieve the content you wish to access.
+
+Write a stepwise plan on what you need to do to obtain that data.
+
+```{r}
+#write your plan here
+
+#step1:
+#step2:
+#step3:
+#step4:
+#step5:
+```
+
+
+Now start by creating a `my_target_url` variable and do the initial accessing of that url with the `read_html` function:
+
+```{r}
+#your code comes here
+```
+
+
+## Task 8: Your custom web-scraper
+
+Start building your own webscraper here:
+
+```{r}
+#your code comes here
+```
+
+
