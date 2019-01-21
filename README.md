@@ -46,8 +46,8 @@ Suggested reading:
 
 #### Week 3
 
-- Lecture 3:  Webscraping with R [(slides to come)]
-- Homework: [Getting API access]
+- Lecture 3:  Webscraping with R [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture3_webscraping.html)
+- Homework: -
 
 Required reading:
 
@@ -65,7 +65,7 @@ Suggested reading:
 Tutorial: [Webscraping in R]
 
 
-
+---
 
 Module convenor and author: Bennett Kleinberg (bennett.kleinberg@ucl.ac.uk)
 

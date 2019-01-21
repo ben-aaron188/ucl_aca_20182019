@@ -1,0 +1,247 @@
+---
+title: "Solutions: Getting API access"
+subtite: "Homework week 2"
+author: "B Kleinberg"
+subtitle: Advanced Crime Analysis, UCL
+output:
+  html_document:
+    df_print: paged
+---
+
+**SOLUTIONS**
+
+## Overview
+
+In this notebook, you will follow a sequence of steps to get access to [Twitter's Search API](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html) and [YouTube's Data API](https://developers.google.com/youtube/v3/).
+
+You will then be able to use these two to access Twitter and YouTube data from your own account through R.
+
+The following external tutorials are an excellent step-by-step guide to obtain the required access codes. You can think of the access codes as a key with which you unlock access to the data through your own credentials. 
+
+**Important:** The process takes some time. However, once you have the access credentials, **do not** share these with anyone. These credentials give others full access to your Twitter/YouTube data and would allow them to send queries on your behalf.
+
+The access codes in the slides are revoked and cannot be used any longer.
+
+## Twitter
+
+Please follow this tutorial to obtain access to Twitter's Search API: [https://towardsdatascience.com/access-data-from-twitter-api-using-r-and-or-python-b8ac342d3efe](https://towardsdatascience.com/access-data-from-twitter-api-using-r-and-or-python-b8ac342d3efe)
+
+The tutorial is an updated version taking into account that Twitter now requires that you apply for a developer account (this used to be different). Please take into account that each application is checked and **approval can take 1-3 days**. We recommend you start with that application first.
+
+_Return to this part of the tutorial once your application has been approved. You can in the meantime best proceed with the steps for the YouTube API [below](##YouTube)._
+
+
+Start initialising the authentication in R with the `twitteR` package and work through the tasks:
+
+1. Install the `twitteR` package
+2. Load the package
+3. Authenticate by replacing your access credentials below (_you can uncomment the lines by removing the #_):
+
+```{r}
+# my_consumer_key = "your_consumer_key_as_a_string"
+# my_consumer_secret = "your_consumer_secret_key_as_a_string"
+# my_access_token = "your_access_token_as_a_string"
+# my_access_secret = "your_access_secret_key_as_a_string"
+
+# setup_twitter_oauth(consumer_key = my_consumer_key
+#                     , consumer_secret = my_consumer_secret
+#                     , access_token = my_access_token
+#                     , access_secret = my_access_secret
+#                     )
+```
+
+### Task 1
+
+Search for tweets in 2019 that are about gun control.
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 2
+
+Filter these tweets to the following locations: NYC, LA, Austin (Texas).
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 3
+
+Expand the search to a wider area and choose the San Diego region. How many tweets are in Spanish and how many in English language?
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 4
+
+Find the current trends on Twitter in London.
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 5
+
+Choose the top trend and use it in a search query to retrieve tweets made in the past 2 days.
+
+```{r}
+#your code comes here:
+```
+
+---
+
+### An alternative approach: `rtweet`
+
+In the lecture we briefly covered differences between Twitter's Search API and the Streaming API. In essence, the Search API gives you more control of your search but less scope of the data, while the Streaming API allows for large-scale real-time access with fewer search controls (see [here](http://140dev.com/twitter-api-programming-tutorials/aggregating-tweets-search-api-vs-streaming-api/)).
+
+A nice feature of the `rtweet` package is that it allows for very simple access to Twitter data without the need for applying to a developer account.
+
+**Note:** Most tutorials on the `rweet` package are outdated and do not yet have the simple authentication process. Therefore, you may find that they still walk you through the API request steps. This is not necessary any longer (but it would still work if you do want to use the API credentials).
+
+Try to follow these steps:
+
+1. Install the `rwteet` package in R
+2. Load the package
+3. Initialise the authentication process through the `search_tweets(...)` function.
+    - this will open a popup in your browser asking you to authorise the `rstats2twitter` app
+    - allow this app to be connected to your Twitter account by loggin in
+
+For step 3, you can use any search query, but as a guide, search for tweets that have the hashtag #london with a maximum of 100 results.
+
+```{r}
+#your code comes here:
+```
+
+
+You may also find these materials useful:
+
+- Brief [workshop slides](https://mkearney.github.io/nicar_tworkshop/) by the `rtweet` developer Michael Kearney.
+- Tutorial by the University of Colorado's Earth Lab on [Twitter Data in R Using Rtweet](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/).
+- [Steps for API authentication](https://rtweet.info/#api-authorization) for `rtweet`. Note: this too is not necessary any longer.
+
+Now that you are set to obtain the data, walk through these tasks:
+
+### Task 1
+
+Search (max. 1,000) tweets that are about knife crimes in London. The actual search query is up to you.
+
+```{r}
+#your code comes here:
+```
+
+### Task 2
+
+Search for all the users that the Dept. of Security and Crime Science's twitter account `@UCLCrimeScience` is following:
+
+```{r}
+#your code comes here:
+```
+
+Now pick one of these users and sample a number of their tweets (e.g. 100):
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 3
+
+Retrieve a list of all followers from `@UCLCrimeScience`.
+
+Hint: `?get_followers`
+
+```{r}
+#your code comes here:
+```
+
+---
+
+## YouTube
+
+Access to YouTube's API requires a Google account. If you have a Gmail account, this is sufficient. 
+
+The steps to get the credentials to not require Youtube's approval (in contrast to Twitter) but getting there is a bit tickier because you will have to navigate the Google Developer's Console. Please follow this step-by-step guide on the Towards Data Science blog: [https://towardsdatascience.com/what-is-api-and-how-to-use-youtube-api-65525744f520](https://towardsdatascience.com/what-is-api-and-how-to-use-youtube-api-65525744f520).
+
+The first part of the blog post is an intro to APIs which we have largely covered in the lecture, so you could skim through this or skip it. The important part for getting access is where you are directed to another brief guide to obtain the actual credentials. 
+
+We noticed that the guide linked to in that tutorial has trouble loading the correct stylesheets (hence the messy layout). If this persists, please have a look at the official docs from [YouTube](https://developers.google.com/youtube/registering_an_application) or this [video](https://www.youtube.com/watch?v=pP4zvduVAqo).
+
+**Note:** The blog post states explicitly that you need the "OAuth" credentials. Other tutorials might show you how to get simple API keys but these won't suffice for access through the `tuber` package.
+
+Once you have obtained access, you can see an addiitonal guide to the `tuber` package [here](http://soodoku.github.io/tuber/articles/tuber-ex.html).
+
+Now, to access YouTube data through your credentials with the `tuber` package, follow these steps:
+
+1. Install the `tuber` package in R
+2. Load the package
+3. Initialise the authentication process.
+
+You can run step 3 by uncommenting (= removing the # at the start of the line) and replacing your access credentials here:
+
+```{r}
+# client_secret = 'your_secret_key_as_a_string'
+# client_id = 'your_cliend_id_as_a_string'
+
+# yt_oauth(app_id = client_id, app_secret = client_secret, token='')
+```
+
+Now that you are set to obtain the data, walk through these tasks:
+
+### Task 1
+
+Choose a recent video from a YouTube channel of your choice and retrieve the url to the high resolution thumbnail.
+
+Hint: `...$snippet$thumbnails$high$url`
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 2
+
+From the video selected above, retrieve the comments made to that video and get the frequencies of the comments made by each user. Are there some users that comment more than others?
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 3
+
+Choose a channel of your choice (a different one from the one used above) and produce the following outcomes: total number of views of the whole channel, number of channel subscribers.
+
+Hint: `...$statistics`
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 4
+
+From that channel, have a look at the channel activity and retrieve all thumbnails used by that channel. Are some re-used?
+
+```{r}
+#your code comes here:
+```
+
+
+### Task 5
+
+Try to find a list of all subscriptions of that channel.
+
+```{r}
+#your code comes here:
+```
+
+
+## END
+
+---

@@ -233,7 +233,7 @@ From that channel, have a look at the channel activity and retrieve all thumbnai
 
 ### Task 5
 
-Try to find a list of all subscribers of that channel.
+Try to find a list of all subscriptions of that channel.
 
 ```{r}
 #your code comes here:
