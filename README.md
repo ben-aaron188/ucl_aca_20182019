@@ -62,7 +62,7 @@ Suggested reading:
 - ElSherief, M., Kulkarni, V., Nguyen, D., Wang, W. Y., & Belding, E. (2018). Hate Lingo: A Target-based Linguistic Analysis of Hate Speech in Social Media. ArXiv:1804.04257 [Cs]. Retrieved from [http://arxiv.org/abs/1804.04257](http://arxiv.org/abs/1804.04257)
 
 
-Tutorial: [Webscraping in R]
+Tutorial: [Webscraping and APIs in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial2_webscraping_in_R.nb.html)
 
 
 ---
