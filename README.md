@@ -46,7 +46,7 @@ Suggested reading:
 
 #### Week 3
 
-- Lecture 3:  Webscraping with R [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture3_webscraping.html)
+- Lecture 3:  Webscraping with R [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture3_webscraping.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture3_webscraping.pdf)
 - Homework: -
 
 Required reading:
