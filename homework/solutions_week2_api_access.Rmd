@@ -1,11 +1,11 @@
 ---
-title: "Solutions: Getting API access"
-subtite: "Homework week 2"
-author: "B Kleinberg"
-subtitle: Advanced Crime Analysis, UCL
+title: 'Solutions: Getting API access'
+author: "B Kleinberg, F Soldner, D Hammocks"
+subtite: Homework week 2
 output:
-  html_document:
-    df_print: paged
+  pdf_document: default
+  html_document: default
+subtitle: Advanced Crime Analysis, UCL
 ---
 
 **SOLUTIONS**
@@ -38,6 +38,8 @@ Start initialising the authentication in R with the `twitteR` package and work t
 3. Authenticate by replacing your access credentials below (_you can uncomment the lines by removing the #_):
 
 ```{r}
+install.packages("twitteR")
+library(twitteR)
 # my_consumer_key = "your_consumer_key_as_a_string"
 # my_consumer_secret = "your_consumer_secret_key_as_a_string"
 # my_access_token = "your_access_token_as_a_string"
@@ -55,7 +57,13 @@ Start initialising the authentication in R with the `twitteR` package and work t
 Search for tweets in 2019 that are about gun control.
 
 ```{r}
-#your code comes here:
+# set parameters
+searchString = "gun+control"
+TimeFrame = "2019-01-01"
+# serach for tweets
+gunControlTW = searchTwitter(searchString, n=25, since = TimeFrame)
+# display 
+head(gunControlTW)
 ```
 
 
@@ -64,7 +72,20 @@ Search for tweets in 2019 that are about gun control.
 Filter these tweets to the following locations: NYC, LA, Austin (Texas).
 
 ```{r}
-#your code comes here:
+# set geolocation (city) in a 5 mile radius
+locNY = "40.685264,-73.944017,5mi"
+locLA = "34.086155,-118.317639,5mi"
+locTex = "30.276867,-97.737594,5mi"
+
+# search and display tweets fro each location
+NY = searchTwitter(searchString, n=25, since = TimeFrame, geocode = locNY)
+head(NY)
+
+LA = searchTwitter(searchString, n=25, since = TimeFrame, geocode = locLA)
+head(LA)
+
+Tex = searchTwitter(searchString, n=25, since = TimeFrame, geocode = locTex)
+head(Tex)
 ```
 
 
@@ -73,7 +94,15 @@ Filter these tweets to the following locations: NYC, LA, Austin (Texas).
 Expand the search to a wider area and choose the San Diego region. How many tweets are in Spanish and how many in English language?
 
 ```{r}
-#your code comes here:
+# set geolocation (San Diego region) for a 10 miles radius
+SD = "32.828101,-117.146665,10mi"
+
+# serach and safe (check for language setting - how mandy can be found if set for spanish? (es))
+SDT = searchTwitter(searchString, n=50, since = TimeFrame, geocode = SD, lang = "en")
+# convert to data frame
+SDDF = twListToDF(SDT)
+head(SDDF)
+# check in text for language?
 ```
 
 
@@ -82,7 +111,15 @@ Expand the search to a wider area and choose the San Diego region. How many twee
 Find the current trends on Twitter in London.
 
 ```{r}
-#your code comes here:
+# setting latitude & longitude for London
+locLondon = "51.520814,-0.127714,5mi"
+LLat = 51.520814
+LLong = -0.127714
+# get woid
+LTrendTWoid = closestTrendLocations(LLat, LLong)
+# pass woid to "get trend"" function to obtain trend
+LTrend = getTrends(LTrendTWoid[1,3])
+head(LTrend)
 ```
 
 
@@ -91,7 +128,12 @@ Find the current trends on Twitter in London.
 Choose the top trend and use it in a search query to retrieve tweets made in the past 2 days.
 
 ```{r}
-#your code comes here:
+# get top trend
+TopTrend = LTrend[1,1]
+# set serach parameters and serach for top trend tweets
+TopTrendTweets = searchTwitter(TopTrend, n=25, sinceID="2019-01-20")
+head(TopTrendTweets)
+
 ```
 
 ---
@@ -115,7 +157,12 @@ Try to follow these steps:
 For step 3, you can use any search query, but as a guide, search for tweets that have the hashtag #london with a maximum of 100 results.
 
 ```{r}
-#your code comes here:
+# install and load the package "rwteet"
+#install.packages("rtweet")
+library(rtweet)
+
+search_tweets("london", n = 100)
+
 ```
 
 
@@ -133,6 +180,10 @@ Search (max. 1,000) tweets that are about knife crimes in London. The actual sea
 
 ```{r}
 #your code comes here:
+tweets_KnifeCrimeLondon<-search_tweets(q='knife OR stabbing AND crime', n=1000)
+
+#View data
+View(tweets_KnifeCrimeLondon)
 ```
 
 ### Task 2
@@ -141,12 +192,37 @@ Search for all the users that the Dept. of Security and Crime Science's twitter 
 
 ```{r}
 #your code comes here:
+#Get list of UserID followed by UCL
+following_UCLDSCS<-get_friends('UCLCrimeScience')
+
+#View top 6 rows of data
+#Note that this shows the user_id
+head(following_UCLDSCS)
+  
+#Use user_id to get their data
+following_UCLDSCSData<- lookup_users(following_UCLDSCS$user_id)
+#View data
+View(followers_UCLDSCSData)
 ```
 
 Now pick one of these users and sample a number of their tweets (e.g. 100):
 
 ```{r}
 #your code comes here:
+
+#Break down:
+#1 We use the sample.int function to return a random integer
+  #Input: number of rows (following), size=1 (return 1 number)
+#2 Index the data to give a user_id (from a random row)
+#3 Turn to numeric as get_timelines wants numeric not character type
+#4 Get 100 of this random users tweets
+  
+#We use nrow rather than a number to ensure that the code will work in the future if there are more or less followed
+  
+timeline_RandomDSCSFollowing<- get_timelines(as.numeric(following_UCLDSCSData[sample.int(n=nrow(following_UCLDSCS),size=1),'user_id']), n=100)
+  
+#View results
+head(timeline_RandomDSCSFollowing)
 ```
 
 
@@ -158,6 +234,15 @@ Hint: `?get_followers`
 
 ```{r}
 #your code comes here:
+# Get a list of all followers of @UCLCrimeScience
+#Get USer ID
+followers_UCLDSCS<-get_followers('UCLCrimeScience')
+
+#Get their data
+followers_UCLDSCSData<-lookup_users(followers_UCLDSCS$user_id)
+  
+#View results
+View(followers_UCLDSCSData)
 ```
 
 ---
@@ -200,7 +285,11 @@ Choose a recent video from a YouTube channel of your choice and retrieve the url
 Hint: `...$snippet$thumbnails$high$url`
 
 ```{r}
-#your code comes here:
+vidID = "VYqWtZTh2LA"
+vidID = "YouTube video ID"
+VDetails = get_video_details(video_id=vidID)
+VDetails$items[[1]]$snippet$thumbnails$high$url
+
 ```
 
 
@@ -209,7 +298,14 @@ Hint: `...$snippet$thumbnails$high$url`
 From the video selected above, retrieve the comments made to that video and get the frequencies of the comments made by each user. Are there some users that comment more than others?
 
 ```{r}
-#your code comes here:
+comments <- get_comment_threads(c(video_id=vidID))
+head(comments)
+authComm = comments$authorDisplayName
+length(authComm)
+length(unique(authComm))
+n_occur <- data.frame(table(authComm))
+n_occur[n_occur$Freq > 1,]
+
 ```
 
 
@@ -220,7 +316,13 @@ Choose a channel of your choice (a different one from the one used above) and pr
 Hint: `...$statistics`
 
 ```{r}
-#your code comes here:
+chID =  "UCZUT79WUUpZlZ-XMF7l4CFg"
+chID =  "Youtube channel id"
+CHstats <- list_channel_resources(filter = c(channel_id = chID), part="statistics")
+viewCount = CHstats$items[[1]]$statistics$viewCount
+TotalSub = CHstats$items[[1]]$statistics$subscriberCount
+viewCount
+TotalSub
 ```
 
 
@@ -229,7 +331,18 @@ Hint: `...$statistics`
 From that channel, have a look at the channel activity and retrieve all thumbnails used by that channel. Are some re-used?
 
 ```{r}
-#your code comes here:
+ChanVid = get_all_channel_video_stats(channel_id = "UCZUT79WUUpZlZ-XMF7l4CFg", mine = FALSE)
+allVidIds = as.vector(ChanVid$id)
+
+get_all_thumb <- function(id) {
+  x = get_video_details(video_id=id)
+  x$items[[1]]$snippet$thumbnails$high$url
+} 
+
+AllThum <- lapply(allVidIds, get_all_thumb)
+length(AllThum)
+length(unique(AllThum))
+
 ```
 
 
@@ -238,7 +351,8 @@ From that channel, have a look at the channel activity and retrieve all thumbnai
 Try to find a list of all subscriptions of that channel.
 
 ```{r}
-#your code comes here:
+subChannel = get_subscriptions(filter = c(channel_id = "UCZUT79WUUpZlZ-XMF7l4CFg"), part = "snippet")
+# no permissions?!
 ```
 
 
