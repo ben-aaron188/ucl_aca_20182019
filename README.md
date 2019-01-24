@@ -22,7 +22,7 @@ Suggested reading:
 
 Tutorial:
 
-- [How to solve R data science problems](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/how_to_solve_data_science_problems.html), [SOLUTIONS]()
+- [How to solve R data science problems](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/how_to_solve_data_science_problems.html), [SOLUTIONS](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/solutions_how_to_solve_data_science_problems.html)
 - 17 Steps to investigate R dataframes - [https://www.rstatisticsblog.com/r-tutorial/dataframe-manipulations/](https://www.rstatisticsblog.com/r-tutorial/dataframe-manipulations/)
 
 
@@ -31,7 +31,7 @@ Tutorial:
 #### Week 2
 
 - Lecture 2: APIs and web-scraping  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture2_apis.pdf)
-- Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html), [SOLUTIONS]()
+- Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html), [SOLUTIONS](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/solutions_week2_api_access.Rmd)
 
 Required reading/preparation:
 
@@ -61,8 +61,7 @@ Suggested reading:
 
 - ElSherief, M., Kulkarni, V., Nguyen, D., Wang, W. Y., & Belding, E. (2018). Hate Lingo: A Target-based Linguistic Analysis of Hate Speech in Social Media. ArXiv:1804.04257 [Cs]. Retrieved from [http://arxiv.org/abs/1804.04257](http://arxiv.org/abs/1804.04257)
 
-
-Tutorial: [Webscraping and APIs in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial2_webscraping_in_R.nb.html), [SOLUTIONS]()
+Tutorial: [Webscraping and APIs in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial2_webscraping_in_R.nb.html), [SOLUTIONS](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/solutions_tutorial2_webscraping_in_R.nb.html)
 
 
 ---
