@@ -61,9 +61,84 @@ In [this blog](https://towardsdatascience.com/learn-to-create-your-own-datasets-
 (Re-)use the code from the above blog post and re-do their scraping process using your own artist (charts) selection.
 
 ```{r}
-#your code comes here
-```
+#NOTE: Differences in html node names - CORRECTED
+#NOTE: Found that artists included featuring... which meant I got 404 errors - CORRECTED
 
+#Load Packages
+library(tidyverse)
+library(rvest)
+
+#Identify the url from where you want to extract data
+URLBase<-"https://www.billboard.com/charts/hot-100-60th-anniversary"
+#Read HTML of that page
+pageBase<-read_html(URLBase)
+
+#Get the artist name
+artist<-html_nodes(pageBase, ".chart-list-item__artist")
+#Convert to char
+artist<-as.character(html_text(artist))
+
+#Get the artist rank
+artistRank<-html_nodes(pageBase, ".chart-list-item__rank ")
+#Convert to numeric
+artistRank<-as.numeric(html_text(artistRank))
+
+# Save it to a tibble df
+  #Note how we replace the '\n' character (which means newline) with nothing
+  #Then we filter for top 10
+artistsTop<-tibble('Artist' = gsub("\n", "", artist),
+                      'Rank' = artistRank) %>%
+                  filter(artistRank <= 10)
+
+#Format the link to navigate to the artists genius webpage
+URLGenius<-paste0("https://genius.com/artists/",artistsTop$Artist)
+
+#Issues aries when songs in the chart are from one artist featuring another
+#Because these collaborations do not have their own artist page
+#We therefore consider the main artist only
+
+#Edit song link
+  #Remove everything after the word Featuring
+URLGenius<-lapply(URLGenius, function(x) {sub('Featuring.*', '', x)})
+#Unlist so in same format
+URLGenius<-unlist(URLGenius)
+
+#Initialize a tibble df to store the results
+artistLyrics<-tibble()
+
+#Retrieve song links for each artist 
+for (i in 1:10) {
+  pageGenius<-read_html(URLGenius[i])
+  URLSongs <- html_nodes(pageGenius, ".mini_card_grid-song a") %>%
+      html_attr("href") 
+  
+   #Inner loop to get the Song Name and Lyrics from the Song Link    
+    for (j in 1:10) {
+      
+      # Get lyrics
+      songLyrics <- read_html(URLSongs[j]) %>%
+          html_nodes("div.lyrics p") %>%
+          html_text()
+        
+      # Get song name
+      songName <- read_html(URLSongs[j]) %>%
+         html_nodes("h1.header_with_cover_art-primary_info-title") %>%
+         html_text()
+        
+      # Save the details to a tibble df
+      artistLyrics <- rbind(artistLyrics, tibble(Rank = artistsTop$Rank[i],
+                                                   Artist = artistsTop$Artist[i],
+                                                   Song = songName,
+                                                   Lyrics = songLyrics ))
+      
+      # Insert time delay
+      Sys.sleep(10)
+     }
+} 
+
+#View results
+artistLyrics
+```
 
 ## Task 5: Creating a local database of missing persons
 
