@@ -9,7 +9,7 @@ This is the companion website for the 2018-2019 module for 3rd year undergraduat
 The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6d620d3f3357e3956b91ae232992d731ded6925c/aca_SECU0050_module_outline.html) provides you with all information around assessment, learning outcomes, timetables, and a general overview of the module. Use the module handbook as your go-to guide throughout the module.
 
 
-#### Week 1
+#### Week 1L INTRODUCTION
 
 - Lecture 1: Introduction [(slides html)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture1_intro.pdf)
 - Homework 1: [Getting ready for R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
@@ -28,7 +28,7 @@ Tutorial:
 
 ---
 
-#### Week 2
+#### Week 2: WEB SCRAPING 1
 
 - Lecture 2: APIs and web-scraping  [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture2_apis.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture2_apis.pdf)
 - Homework: [Getting API access](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week2_api_access.html), [SOLUTIONS](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/solutions_week2_api_access.Rmd)
@@ -44,7 +44,7 @@ Suggested reading:
 - Founta, A.-M., Djouvas, C., Chatzakou, D., Leontiadis, I., Blackburn, J., Stringhini, G., … Kourtellis, N. (2018). Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior. ArXiv:1802.00393 [Cs]. Retrieved from [http://arxiv.org/abs/1802.00393](http://arxiv.org/abs/1802.00393)
 
 
-#### Week 3
+#### Week 3: WEB SCRAPING 2
 
 - Lecture 3:  Webscraping with R [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture3_webscraping.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture3_webscraping.pdf)
 - Homework: -
@@ -62,6 +62,23 @@ Suggested reading:
 - ElSherief, M., Kulkarni, V., Nguyen, D., Wang, W. Y., & Belding, E. (2018). Hate Lingo: A Target-based Linguistic Analysis of Hate Speech in Social Media. ArXiv:1804.04257 [Cs]. Retrieved from [http://arxiv.org/abs/1804.04257](http://arxiv.org/abs/1804.04257)
 
 Tutorial: [Webscraping and APIs in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial2_webscraping_in_R.nb.html), [SOLUTIONS](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/solutions_tutorial2_webscraping_in_R.nb.html)
+
+
+#### Week 4: TEXT DATA 1
+
+- Lecture 4:  Text data and text mining in R [slides], [pdf]
+- Homework: [to come]
+
+Required reading:
+
+- Grolemund, G., & Wickham, H. (2018). Strings. In R for Data Science. Retrieved from [https://r4ds.had.co.nz/](https://r4ds.had.co.nz/)
+
+Suggested tutorials/reading:
+
+- Replication of Chapter 5 of Quantitative Social Science: An Introduction. (n.d.). Retrieved January 26, 2019, from [https://quanteda.io/articles/pkgdown/replication/qss.html](https://quanteda.io/articles/pkgdown/replication/qss.html)
+- Example: textual data visualization. (n.d.). Retrieved January 26, 2019, from [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html)
+
+Tutorial: - 
 
 
 ---
