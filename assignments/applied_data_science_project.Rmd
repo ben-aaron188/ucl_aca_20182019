@@ -1,6 +1,8 @@
 ---
-title: ACA assignment
-output: html_notebook
+title: "ACA assignment"
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ## Applied Data Science Project
@@ -15,12 +17,36 @@ This assessment is the capstone project of the module. It requires you to addres
     - performing data science analyses on crime and/or-security related issues
     - applying the data science pipeline on crime and/or-security related issues
     - interpreting and effectively reporting the results of said techniques
-- Deadline: 16 April 2019.
-- Feedback deadlines: 9 March 2019 for the peer-feedback, 22 March for the 1-on-1 feedback (see below)
+- Deadline: **16 April 2019**.
+- Feedback deadlines: **8 March 2019** for the peer-feedback, **22 March 2019** for the 1-on-1 feedback (see below)
 - Word count limit: 2000 words (excl. code supplement; do not exceed this word count limit!)
 
 ### Project requirements
 
+You are free to choose a topic that you want to address using data science techniques learned in this module. The problem should be crime/security related.
+
+We strongly encourage ambitious/daring/new/fancy ways of addressing a problem and originality is highly valued in this assignment.
+
+There are few cornerstones for this project that we expect you to include. In this module, we cover three blocks of data science for crime science: (1) obtaining data with webscaping/APIs, (2) using and analysing text data, and (3) applying machine learning models.
+
+In this module you have to use at least 2 of these 3 blocks. The combination of blocks is up to you and you are free to include all three. Some inspirations for each block are listed below (this list is of course not exhaustive):
+
+**Block 1: Obtaining data with webscaping/APIs**
+
+- retrieving data from APIs that were covered in the module
+- new APIs that have a similar R access pipeline
+- obtaining data through custom-made webscraping scripts
+
+**Block 2: Using and analysing text data**
+
+- modelling texts through linguistic representations
+- processing + cleaning texts for further analysis
+- using text metrics to compare groups/clusters of texts
+
+**Block 3: Applying machine learning models**
+
+- building predictive models (supervised machine learning)
+- applying clustering methods (unsupervised machine learning)
 
 
 ### Grading guidelines
@@ -34,6 +60,13 @@ Requirements to be graded:
 
 Grading criteria:
 
+- Originality of research question/problem -- 15%
+- Quality of data science techniques -- 20%
+- Quality of analytical methods -- 15%
+- Interpretation of findings -- 20%
+- Clarity of report -- 10%
+- Quality of report (layout, formatting) -- 10%
+- Quality of R code (clarity, documentation, reproducibility) -- 10%
 
 
 ### Feedback sessions
@@ -41,11 +74,14 @@ Grading criteria:
 Since a full project is a major step in your data science skills career, we will hold two feedback sessions to help you in the process.
 
 - Peer-feedback session: you will exchange an outline of your project idea (i.e. which problem do you want to address and how?) with a fellow student. The purpose of the peer feedback is to get an independent view on your project early in the process. The peer-feedback session will be held at end of the “Advanced, promises and problems” lecture on **11 March 2019**. Use [this](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/assignments/peer_feedback_submission.nb.html) template for your feedback submission.
-- 1-on-1 feedback session: you will receive individualised feedback from both Bennett and Felix in a 1-on-1 session where we will help you with questions and give you final advice to fine-tune your project. These sessions will take 10 minutes per student and will be held on **25 March 2019** (timeslots to be arranged). Submit your feedback on Moodle through using [this]() template.
+- 1-on-1 feedback session: you will receive individualised feedback from both Bennett and Felix in a 1-on-1 session where we will help you with questions and give you final advice to fine-tune your project. These sessions will take 10 minutes per student and will be held on **25 March 2019** (timeslots to be arranged). Submit your feedback on Moodle through using [this](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/assignments/individual_feedback_submission.nb.html) template.
 
 
 ### Deliverables
 
+- Feedback report for peer-feedback
+- Feedback review report for a fellow student
+- Feedback report for 1-on-1 session
 - Report of your project: the report has a word count limit of 2,000 words and should contain the following sections
     - intro to the problem
     - aim of your project
