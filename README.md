@@ -9,7 +9,7 @@ This is the companion website for the 2018-2019 module for 3rd year undergraduat
 The [module handbook](https://rawcdn.githack.com/ben-aaron188/ucl_aca_20182019/6d620d3f3357e3956b91ae232992d731ded6925c/aca_SECU0050_module_outline.html) provides you with all information around assessment, learning outcomes, timetables, and a general overview of the module. Use the module handbook as your go-to guide throughout the module.
 
 
-#### Week 1L INTRODUCTION
+#### Week 1: INTRODUCTION
 
 - Lecture 1: Introduction [(slides html)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture1_intro.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture1_intro.pdf)
 - Homework 1: [Getting ready for R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/getting_ready_for_r.html)
