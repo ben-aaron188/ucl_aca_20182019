@@ -18,6 +18,27 @@ output:
 Text data 1
 
 
+## Briefly about the module {.left_aligned}
+
+- 0.5 UCL credits = 7.5 ECTS
+- 150 learning hours
+- 11 weeks with 14 hours/week
+- 3 contact hours per week
+- **leaves 11 hours of self-study per week**
+
+
+## Expected self-study {.left_aligned}
+
+- Revise the lecture (your responsibility)
+- Replicate the code/examples
+- Read the required literature (read, annotate, summarise)
+- Read additional literature if necessary
+- Design own code examples to understand the concept
+- Find tutorials/guides online
+- If still unclear: attend the code clinics: **Weds 10-11 am**
+- or: post it on Moodle or ask us
+
+
 ## Today {.left_aligned}
 
 - Why text data?
