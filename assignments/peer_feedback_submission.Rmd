@@ -6,7 +6,14 @@ output: html_notebook
 
 **Use this template to submit your work for the peer-review session. A fellow student will use this to give feedback on your work.**
 
+_Make sure to submit your work before the deadline (8 March 2019) so that your fellow students have sufficient time to read and review your work._
+
 Use the sections below to provide some background on your project and initial considerations about your intended analysis.
+
+Your project title:
+
+Your name:
+
 
 ### Problem context: Which problem does your project address?
 

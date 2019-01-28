@@ -1,0 +1,40 @@
+---
+title: ACA assignment
+subtitle: 1-on-1 feedback form
+output: html_notebook
+---
+
+**Use this template to submit your work for the 1-on-1 feedback session.**
+
+_Make sure to submit your work before the deadline (22 March 2019) so that we can read and consider your work._
+
+Use the sections below to provide some background on your project and initial considerations about your intended analysis.
+
+Your project title:
+
+Your name:
+
+
+### Problem context: Which problem does your project address?
+
+(write no more than 50 words)
+
+### Your idea: What is the new/unique approach that you are using in your project?
+
+(write no more than 50 words)
+
+### How will you obtain the data?
+
+(use bullet points)
+
+### Describe your analysis
+
+(use bullet points)
+
+### Describe any coding issues
+
+(use bullet points)
+
+### Describe the current state of your project
+
+---

@@ -16,7 +16,7 @@ This assessment is the capstone project of the module. It requires you to addres
     - applying the data science pipeline on crime and/or-security related issues
     - interpreting and effectively reporting the results of said techniques
 - Deadline: 16 April 2019.
-- Feedback deadlines: 11 March 2019 for the peer-feedback, 25 March for the 1-on-1 feedback (see below)
+- Feedback deadlines: 9 March 2019 for the peer-feedback, 22 March for the 1-on-1 feedback (see below)
 - Word count limit: 2000 words (excl. code supplement; do not exceed this word count limit!)
 
 ### Project requirements
@@ -40,8 +40,8 @@ Grading criteria:
 
 Since a full project is a major step in your data science skills career, we will hold two feedback sessions to help you in the process.
 
-- Peer-feedback session: you will exchange an outline of your project idea (i.e. which problem do you want to address and how?) with a fellow student. The purpose of the peer feedback is to get an independent view on your project early in the process. We will provide templates for the feedback that you will give and receive. The peer-feedback session will be held at end of the “Advanced, promises and problems” lecture on 11 March 2019.
-- 1-on-1 feedback session: you will receive individualised feedback from both Bennett and Felix in a 1-on-1 session where we will help you with questions and give you final advice to fine-tune your project. These sessions will take 10 minutes per student and will be held on 25 March 2019 (timeslots to be arranged).
+- Peer-feedback session: you will exchange an outline of your project idea (i.e. which problem do you want to address and how?) with a fellow student. The purpose of the peer feedback is to get an independent view on your project early in the process. The peer-feedback session will be held at end of the “Advanced, promises and problems” lecture on **11 March 2019**. Use [this](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/assignments/peer_feedback_submission.nb.html) template for your feedback submission.
+- 1-on-1 feedback session: you will receive individualised feedback from both Bennett and Felix in a 1-on-1 session where we will help you with questions and give you final advice to fine-tune your project. These sessions will take 10 minutes per student and will be held on **25 March 2019** (timeslots to be arranged). Submit your feedback on Moodle through using [this]() template.
 
 
 ### Deliverables
