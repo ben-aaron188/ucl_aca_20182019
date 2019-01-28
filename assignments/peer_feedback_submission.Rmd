@@ -1,0 +1,43 @@
+---
+title: ACA assignment
+subtitle: Peer-feedback form
+output: html_notebook
+---
+
+**Use this template to submit your work for the peer-review session. A fellow student will use this to give feedback on your work.**
+
+Use the sections below to provide some background on your project and initial considerations about your intended analysis.
+
+### Problem context: Which problem does your project address?
+
+(write no more than 100 words)
+
+### Your idea: What is the new/unique approach that you are using in your project?
+
+(write no more than 100 words)
+
+### How will you obtain the data?
+
+(write no more than 100 words)
+
+### Provide bullet points about your analysis pipeline
+
+(use bullet points to state which pre-processing steps you use, which data exclusions you use, etc.)
+
+
+---
+
+**LEAVE THIS BLANK FOR THE PEER-REVIEWER**
+
+Note for the peer-reviewer:
+
+In your feedback, include at least the following aspects:
+
+- Is the research question clear?
+- Is clear which data are used and how the data are otained?
+- Is clear why this data source is used?
+- Are there clear considerations about the analytical plan?
+- Does the plan contain at least 2 of the 3 data science blocks that were covered in this module (webscraping/APIs, text mining/text analysis, machine learning)?
+- Which advice would you give your fellow student?
+- Are there any pitfalls to this project?
+- What would you do differently?

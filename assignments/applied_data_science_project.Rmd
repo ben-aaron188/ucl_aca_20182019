@@ -1,11 +1,66 @@
 ---
 title: ACA assignment
-output: html_document
+output: html_notebook
 ---
 
 ## Applied Data Science Project
 
+This assessment is the capstone project of the module. It requires you to address a crime and security science research problem in the full data science workflow (e.g., obtaining the data, processing the data, modelling the data, building predictive models, reporting on the findings, interpreting the outcomes). You will write a brief report on your project (a template will be provided) and you have to submit the R code needed to reproduce your findings. After passing this assessment, you will have the demonstrated the skills to solve a problem using data science techniques.
+
+### Basic info
+
+- Weight for final grade: 70%
+- Learning outcomes tested:
+    - demonstrating knowledge of a broader range of analytical techniques used in the field of Security and Crime Science
+    - performing data science analyses on crime and/or-security related issues
+    - applying the data science pipeline on crime and/or-security related issues
+    - interpreting and effectively reporting the results of said techniques
+- Deadline: 16 April 2019.
+- Feedback deadlines: 11 March 2019 for the peer-feedback, 25 March for the 1-on-1 feedback (see below)
+- Word count limit: 2000 words (excl. code supplement; do not exceed this word count limit!)
+
+### Project requirements
 
 
+
+### Grading guidelines
+
+Requirements to be graded:
+
+- submit the peer-feedback form in time
+- submit the 1-on-1 feedback form in time
+- attend the feedback sessions
+- submit the report + code supplement before the deadline
+
+Grading criteria:
+
+
+
+### Feedback sessions
+
+Since a full project is a major step in your data science skills career, we will hold two feedback sessions to help you in the process.
+
+- Peer-feedback session: you will exchange an outline of your project idea (i.e. which problem do you want to address and how?) with a fellow student. The purpose of the peer feedback is to get an independent view on your project early in the process. We will provide templates for the feedback that you will give and receive. The peer-feedback session will be held at end of the “Advanced, promises and problems” lecture on 11 March 2019.
+- 1-on-1 feedback session: you will receive individualised feedback from both Bennett and Felix in a 1-on-1 session where we will help you with questions and give you final advice to fine-tune your project. These sessions will take 10 minutes per student and will be held on 25 March 2019 (timeslots to be arranged).
+
+
+### Deliverables
+
+- Report of your project: the report has a word count limit of 2,000 words and should contain the following sections
+    - intro to the problem
+    - aim of your project
+    - data (i.e. how were the data obtained, which data were used, ...)
+    - method (i.e. what did you do with the data, which analytical models did you apply, ...)
+    - analytical plan (i.e. clearly set out which analysis you used)
+    - results
+    - discussion (incl. limitations of your work + outlook on future research)
+- Code supplement: you also submit the code needed to fully reproduce your work in an R Notebook
+    - the code should be clearly documented
+    - the header should contain your student assessment ID (i.e. the code is fully anonymised)
+    - the code must be reproducible both for the data collection (in case of webscraping) and for the analysis
+- Data: submit your data in the format that you use for the analysis as well as in the raw format
+    - raw format: this can be individual text files, existing spreadsheets, news paper articles that were scraped, etc.
+    - analysis file: this is typically a `.csv` file or an `.RData` file that you load in when you analyse the data
+    
 
 ---
