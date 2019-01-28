@@ -67,7 +67,7 @@ Tutorial: [Webscraping and APIs in R](https://raw.githack.com/ben-aaron188/ucl_a
 #### Week 4: TEXT DATA 1
 
 - Lecture 4:  Text data and text mining in R [slides](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture4_textdata1.html), [pdf](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture4_textdata1.pdf)
-- Homework: [to come]
+- Homework: [Text data basics](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/homework/week4_textdata.nb.html)
 
 Required reading:
 
