@@ -25,17 +25,47 @@ Create a corpus of these texts using the `quanteda` package.
 #your code here
 ```
 
+
 ## Task 2: Text statistics
 
+Calculate the average number of characters per word and the average number of words per sentence.
 
+```{r}
+#your code here
+```
 
 ## Task 3: Text metrics
 
-## Task 4: TF-IDF
+What is the type-token ratio (TTR) of your texts (each text individually)?
+
+```{r}
+#your code here
+```
+
+## Task 4: Word frequencies
+
+Build a term frequency count representation, and retrieve the top features (hint: `topfeatures`) for each text.
+
+```{r}
+#your code here
+```
 
 ## Task 5: TF-IDF
 
+Now build a TF-IDF weighted representation of your corpus. Perform this transformation in five different ways: (1) based on the raw texts, (2) removing stopwords, (3) removing punctuation, (4) stemming the words, and (5) combining (2)-(4).
+
+```{r}
+#your code here
+```
+
+
 ## Task 6: Parts-of-speech
+
+For all texts, calculate the part-of-speech proportions and find out which POS tag is used most often by you in each text.
+
+```{r}
+#your code here
+```
 
 ## END
 
