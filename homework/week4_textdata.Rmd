@@ -1,0 +1,42 @@
+---
+title: "Text data & text mining"
+subtite: "Homework week 4"
+author: "B Kleinberg"
+subtitle: Advanced Crime Analysis, UCL
+output: html_notebook
+---
+
+## Aims of this homework
+
+- learn the basics of dealing with text data in R
+- compute some text metrics
+- build a linguistic representation of your own texts
+
+
+## Task 1: Creating your corpus
+
+In this homework, you will use your own text data for some initial linguistic analysis.
+
+Select at least three assignments that you handed in as coursework in your BSc so far. To import the into R, either copy-and-paste them as raw text into a string variable, or save the raw text as a `.txt` file and read these files in.
+
+Create a corpus of these texts using the `quanteda` package.
+
+```{r}
+#your code here
+```
+
+## Task 2: Text statistics
+
+
+
+## Task 3: Text metrics
+
+## Task 4: TF-IDF
+
+## Task 5: TF-IDF
+
+## Task 6: Parts-of-speech
+
+## END
+
+---
