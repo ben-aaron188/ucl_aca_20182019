@@ -248,7 +248,7 @@ You will learn in two mini projects how to apply the full set of techniques lear
 
 ### Applied Data Science Project
 
-**Updated assignment details can be found [here]()**
+**!!! Updated assignment details can be found [here](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/assignments/applied_data_science_project.nb.html)**
 
 - Weight for final grade: 70%
 - Learning outcomes tested: (1) demonstrating knowledge of a broader range of analytical techniques used in the field of Security and Crime Science, (2) performing data science analyses on crime and/or-security related issues, (3) applying the data science pipeline on crime and/or-security related issues, (4) interpreting and effectively reporting the results of said techniques
