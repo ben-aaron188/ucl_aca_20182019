@@ -171,8 +171,6 @@ Tutorial: Data cleaning and preprocessing and text mining in R
 
 You will learn how to (1) clean and process data using examples of vlog transcripts from "toxic" YouTubers, (2) build a bag-of-words representation of Tweets using different levels of resolution, (3) apply a prominent psycholinguistic approach to text data, and (4) build your own lexicon to measure custom-made linguistic constructs.
 
-Peer-feedback: the lecture includes the peer-feedback session for the Applied Data Science Project.
-
 ### Week 6 (26): 18 Feb
 
 Lecture: Machine learning I
@@ -211,7 +209,6 @@ Things we will cover:
 - Guide through all steps of the full data science pipeline for crime scientists (from web-scraping via text mining to machine learning models)
 - Guest talk (2nd half)
 
-1-on-1 feedback: after the lecture, we will hold the 1-on-1 feedback sessions (to be scheduled individually), see below.
 
 No tutorial.
 
@@ -227,13 +224,20 @@ Things we will cover:
 - Outlook on the future
 - The technology fallacy
 
+_Peer-feedback: the lecture includes the peer-feedback session for the Applied Data Science Project._
+
 Tutorial: The full data science pipeline in R
 
 You will learn in two mini projects how to apply the full set of techniques learned in this module. One project will focus on web-scraping -> cleaning/preprocessing data -> building a machine learning model. The second project will in addition include text mining and various machine learning techniques.
 
+
 ### Week 10 (30): 18 Mar
 
 **Class test**
+
+### 25 Mar
+
+_1-on-1 feedback: we will hold the 1-on-1 feedback sessions from 2pm - 5pm (slots to be scheduled individually), see below._
 
 ## Assessment
 
