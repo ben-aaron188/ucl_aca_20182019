@@ -81,6 +81,17 @@ Suggested tutorials/reading:
 Tutorial: - 
 
 
+#### Week 5: TEXT DATA 2
+
+- Lecture 5: Advanced text analysis in R
+- Tutorial: Data cleaning and preprocessing and text mining in R
+
+Required reading:
+
+- Kleinberg, B., Mozes, M., & Van der Vegt, I. (2018). Identifying the sentiment styles of YouTube’s vloggers. Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, 3581–3590. Retrieved from [http://aclweb.org/anthology/D18-1394](http://aclweb.org/anthology/D18-1394)
+- Pérez-Rosas, V., Kleinberg, B., Lefevre, A., & Mihalcea, R. (2018). Automatic Detection of Fake News. In Proceedings of the 27th International Conference on Computational Linguistics (pp. 3391–3401). Santa Fe, New Mexico, USA: Association for Computational Linguistics. Retrieved from [http://aclweb.org/anthology/C18-1287](http://aclweb.org/anthology/C18-1287)
+
+
 ---
 
 Module convenor and author: Bennett Kleinberg (bennett.kleinberg@ucl.ac.uk)
