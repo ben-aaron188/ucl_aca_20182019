@@ -427,11 +427,14 @@ $TFIDF = TF/DF$ = $TFIDF = TF*IDF$, since
 
 $IDF = 1/DF$
 
+IDF often modelled as $IDF = log(\frac{N}{DF})$
 
 ## TF-IDF
 
+Note: for the [exact formula for the inverse DF refer to the quanteda docs](https://quanteda.io/reference/docfreq.html).
+
 ```{r}
-knitr::kable(round(dfm_tfidf(corpus_dfm, scheme_tf = 'prop', scheme_df = 'count'), 3)[, 10:15])
+knitr::kable(round(dfm_tfidf(corpus_dfm, scheme_tf = 'prop', scheme_df = 'inverse'), 3)[, 10:15])
 ```
 
 

@@ -856,7 +856,7 @@ string_b =<span class="st"> &quot;But I will finish it by striking back.&quot;</
 ##  text2    63     88         3
 ## 
 ## Source: /Users/bennettkleinberg/GitHub/ucl_aca_20182019/slides/* on x86_64 by bennettkleinberg
-## Created: Mon Jan 28 09:44:46 2019
+## Created: Sun Feb  3 18:37:47 2019
 ## Notes:</code></pre>
 </section>
 <section id="dfm-representation-1" class="slide level2">
@@ -1177,12 +1177,12 @@ corpus_dfm =<span class="st"> </span><span class="kw">dfm</span>(corpus_tokenise
 </ul>
 <p><span class="math inline">\(TFIDF = TF/DF\)</span> = <span class="math inline">\(TFIDF = TF*IDF\)</span>, since</p>
 <p><span class="math inline">\(IDF = 1/DF\)</span></p>
+<p>IDF often modelled as <span class="math inline">\(IDF = log(\frac{N}{DF})\)</span></p>
 </section>
 <section id="tf-idf-1" class="slide level2">
 <h2>TF-IDF</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">dfm_tfidf</span>(corpus_dfm, <span class="dt">scheme_tf =</span> <span class="st">'prop'</span>, <span class="dt">scheme_df =</span> <span class="st">'count'</span>), <span class="dv">3</span>)[, <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>])</code></pre></div>
-<pre><code>## Warning in docfreq.dfm(x, scheme = scheme_df, base = base, ...): base not
-## used for this scheme</code></pre>
+<p>Note: for the <a href="https://quanteda.io/reference/docfreq.html">exact formula for the inverse DF refer to the quanteda docs</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">dfm_tfidf</span>(corpus_dfm, <span class="dt">scheme_tf =</span> <span class="st">'prop'</span>, <span class="dt">scheme_df =</span> <span class="st">'inverse'</span>), <span class="dv">3</span>)[, <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>])</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1198,17 +1198,17 @@ corpus_dfm =<span class="st"> </span><span class="kw">dfm</span>(corpus_tokenise
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">text1</td>
-<td style="text-align: right;">0.049</td>
-<td style="text-align: right;">0.033</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.016</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.024</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">text2</td>
-<td style="text-align: right;">0.045</td>
-<td style="text-align: right;">0.045</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0.000</td>
 <td style="text-align: right;">0.000</td>
 <td style="text-align: right;">0.000</td>

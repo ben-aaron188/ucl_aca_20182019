@@ -1,0 +1,293 @@
+---
+title: 'Text mining in R'
+author: B Kleinberg
+date: 5 Feb 2019
+subtitle: Dept of Security and Crime Science, UCL
+output: html_notebook
+---
+
+---
+
+Tutorial 3, Advanced Crime Analysis, BSc Security and Crime Science, UCL
+
+---
+
+## Aim of this tutorial
+
+You will use concepts learned in the lectures to:
+
+- use computational linguistics to query text data
+- represent text corpora as 
+- examine the sentiment of text data
+- use psycholinguistics to look at additional text variables
+
+### Task 1: Preparing the corpus
+
+In this tutorial, you will explore a unique dataset of YouTube transcripts extracted from left-leaning and right-leaning news channels. In the provided dataset, you have the transcripts of 2000 YouTube videos each from FoxNews (a right-leaning US news channel) and from The Young Turks (a left-leaning US news outlet).
+
+Load the original dataframe called `media_data` from `data/media_data.RData`.
+
+```{r}
+#your code
+
+```
+
+Make sure you have the following packages installed+loaded into your workspace:
+
+- quanteda
+- stringr
+- sentimentr
+- syuzhet
+
+```{r}
+#your code
+
+```
+
+Take a look at the data and identify the column that contains the text data:
+
+```{r}
+#your code
+
+```
+
+Now, before you create a corpus from the text column, makle sure that all strings are in the same format. You will see that some are all UPPERCASE. Equally, you can observe that some contain punctuation, while others do not.
+
+Fix this by creating a new column called `text_clean` that contains the lowercased strings and has the punctuation removed. (hint: take a look at the super useful `stringr` package and [this related SO question](https://stackoverflow.com/a/10294818))
+
+
+```{r}
+#your code
+
+```
+
+Now use the `text_clean` column to create a corpus object called `media_corpus` from the `quanteda` package. Remove the orginal text column to avoid excessive data structures and the rename the column `text_clean` to `text` (this is important for quanteda to knwo where the text is located):
+
+```{r}
+#your code
+
+```
+
+Take a look at the summary of the new object `media_corpus`:
+
+```{r}
+#your code
+
+```
+
+Use the `summary` function (hint: you might want to change the `n=` argument) on the corpus to create the object `corpus_statistics` and calculate:
+
+- the total number of tokens in the corpus
+- the type/token ratio for each document
+- the average type/token ration for both channels separately (hint: `tapply`)
+
+```{r}
+#your code
+
+
+
+```
+
+
+### Task 2: Building a TFIDF representation
+
+Next, build a TFIDF representation from the corpus using the `count` TF representation and the `inverse` DF representation. Use the stemmed tokens but leave the stopwords in when you create a DFM.
+
+Step 1: create the DFM
+
+```{r}
+#your code
+
+```
+
+Take a look at the first 10 rows and first ten columns of your DFM.
+
+```{r}
+#your code
+
+```
+
+Step 2: Weigh the DFM to a TFIDF representation
+
+```{r}
+#your code
+
+```
+
+Again, take a look at the first 10 rows and first ten columns of your TFIDF-DFM.
+
+```{r}
+#your code
+
+```
+
+Retrieve the top 10 features (tokens) according to their TFIDF value for both `channel_name` values. (Hint: look at the `groups` argument in the `topfeatures` function).
+
+```{r}
+#your code
+
+```
+
+
+Rebuild the TFIDF without stopwords and look at the top features again:
+
+```{r}
+#your code
+
+```
+
+### Task 3: Building ngram representations
+
+Now take the above steps a bit further and produce a TF-IDF weighted bi-gram DFM.
+
+Keep in mind that this involves several steps. Once you have created your bi-gram DFM (without the TFIDF weighting), remove those that do not occur in at least 5% of all documents. Stem the tokens.
+
+Step 1: create the bigram DFM and apply the sparsity correction.
+
+```{r}
+#your code
+
+
+```
+
+
+What was the original overall sparsity, and how did it change?
+
+```{r}
+#your code
+
+```
+
+Step 2: apply TFIDF weighting
+
+```{r}
+#your code
+
+```
+
+What are the top 5 features (per group) before TFIDF weighting, and after TFIDF weighting?
+
+```{r}
+#your code
+
+```
+
+
+### Task 4: Assessing the sentiment of the corpus
+
+Now let's look at the sentiment of the texts from these news outlets. We'll start with the sentence-based approach from the `sentimentr` package. Since only the data from FoxNews was punctuated and hence contained sentences, we'll focus on these ones only.
+
+Create a new object called `foxnews_only` that contains only the transcripts of FoxNews:
+
+```{r}
+#your code
+
+```
+
+Now use the `sentiment` function to retrieve the sentiment of each sentence from this sub-corpus and store the results in a variable called `foxnews_sentiments` (this will take a while):
+
+```{r}
+#your code
+
+
+```
+
+The object `foxnews_sentiments` now contains a sentiment value for each sentence in this sub-corpus.
+
+Take a look at the distribution of these sentiments using a histogram:
+
+```{r}
+#your code
+
+
+```
+
+What is the mean/median/min/max sentiment?
+
+```{r}
+#your code
+
+
+```
+
+
+### Task 5: Using the sentiment trajectory approach
+
+Now let's use the more advanced dynamic approach that can handle valence shifters as well as unpunctuated data.
+
+Step 1: load the local source to access the `ncs` (= naive context sentiment) function by running the command below:
+
+```{r}
+source('./r_deps/naive_context_sentiment/ncs.R')
+```
+
+You now have access to the sentiment trajectory algorithm developed and introduced in [this](http://aclweb.org/anthology/D18-1394) paper.
+
+The main wrapper function is called `ncs_full` and asks you to specify the following arguments:
+
+- txt_input_col: the column where your text is located
+- txt_id_col: an identifier column
+- low_pass_filter_size: the degree of smoothing in the Fourier transformation
+- transform_values: whether or not to scale the values to -1.00 : +1.0
+- normalize_values: whether or not to normalise the values (i.e. mean = 0, sd = 1)
+- min_tokens: the minimum number of tokens that a text must contain to be processed
+- cluster_lower: the lower size of the context window around the sentiment word
+- cluster_upper: the upper size of the context window
+
+Extract the sentiment trajectories of the first 100 FoxNews and the first 100 The Young Turks transcripts and leave all values in their default state (i.e. only specify the `txt_input_col` and `txt_id_col` argument). Call the resulting data `sentiment_trajectories_foxnews` and `sentiment_trajectories_tyt`. Note that `ncs_full` assumes that your input data is a data.frame (so use the media_data dataframe). Run the analysis on the cleaned text column. This operation will also take a few minutes.
+
+```{r}
+#your code
+
+```
+
+
+Now take a look at some shapes of the sentiment trajectories. Compare 2 shapes from FoxNews with 2 shapes from The Young Turks by plotting them:
+
+```{r}
+#your code
+
+
+```
+
+
+### Task 6: Psycholinguistic variables
+
+Finally, let's explore the psycholinguistics dimension (and additional, deeper linguistic constructs as retrieved through the Linguistic Inquiry and Word Count Software a.k.a. LIWC. 
+
+Load the LIWC output for this corpus (LIWC extraction already done) as a csv file from `./data/media_data_liwc.csv` and call the resulting object `liwc_data`.
+
+```{r}
+#your code
+
+```
+
+Look at the first ten rows of this object:
+
+```{r}
+#your code
+
+```
+
+Now calculate the average of the following variables per group:
+
+- swear words
+- focus on the future
+- focus on the past
+- personal pronouns (ppron)
+- amount of analytical language
+- references to 'power'
+
+Note: you will have to create the 'group' variable yourself from the `file` variable.
+
+```{r}
+#your code
+
+```
+
+
+Explore the data further to understand the LIWC.
+
+---
+
+## END
