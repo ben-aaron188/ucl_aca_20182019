@@ -83,8 +83,8 @@ Tutorial: -
 
 #### Week 5: TEXT DATA 2
 
-- Lecture 5: Advanced text analysis in R
-- Tutorial: Data cleaning and preprocessing and text mining in R
+- Lecture 5: Advanced text analysis in R [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture5_textdata2.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture5_textdata2.pdf)
+- Tutorial: [Data cleaning and preprocessing and text mining in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial3_textmining_in_r.nb.html), [(raw Rmd file)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/tutorials/tutorial3_textmining_in_r.Rmd)
 
 Required reading:
 
