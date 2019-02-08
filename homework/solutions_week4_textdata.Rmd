@@ -12,6 +12,7 @@ output: html_notebook
 
 Select three assignments. Convert them to RAW text files. Import into R and create a corpus.
 
+
 ```{r}
 #Load Packages
 require(readr)
@@ -26,9 +27,10 @@ text3<-read_file('data/GutenbergBooks/DeadMenTellNoTales.txt')
 require(quanteda)
 
 #Create a corpus
-corpus<-corpus(c(text1, text2, text3))
-
+corpus = corpus(c(text1, text2, text3))
 ```
+
+
 
 ### Task 2: Text Statistics
 
@@ -40,12 +42,12 @@ avgCharPerWord<-nchar(corpus[])/ntoken(corpus[])
 #Display Answer#avgCharPerWord
 avgCharPerWord
 
-
 #Average number of words per sentence
 avgWordPerSentence<-ntoken(corpus[])/nsentence(corpus[])
 #Display Response
 avgWordPerSentence
 ```
+
 
 ### Task 3: Text Metrics
 What is the type-token ratio (TTR) of your texts (each text individually)?
@@ -60,69 +62,77 @@ Text3_TTR<-ntype(corpus[3])/ntoken(corpus[3])
 print(c(TTRText1, TTRText2, TTRText3))
 ```
 
+
 ### Task 4: Word Frequencies
 Build a term frequency count representation, and retrieve the top features (hint: topfeatures) for each text.
+
 ```{r}
-#Calculate Document Feature Matrices (Frequency Count Representation)
-Text1_DFM<-dfm(corpus[1])
-Text2_DFM<-dfm(corpus[2])
-Text3_DFM<-dfm(corpus[3])
+# create document-feature matrix
+DFM = dfm(corpus)
 
 #USe topfeatures to get the top features
-Text1_TF<-topfeatures(Text1_DFM)
-Text2_TF<-topfeatures(Text2_DFM)
-Text3_TF<-topfeatures(Text3_DFM)
+topfeatures(DFM[1])
+topfeatures(DFM[2])
+topfeatures(DFM[3])
 ```
-
 
 
 ### Task 5: TF-IDF
 Now build a TF-IDF weighted representation of your corpus. Perform this transformation in five different ways: (1) based on the raw texts, (2) removing stopwords, (3) removing punctuation, (4) stemming the words, and (5) combining (2)-(4).
 
 ```{r}
-#Calculate TF-IDF
-Text1_TFIDFRaw<-dfm_tfidf(Text1_DFM)
-Text2_TFIDFRaw<-dfm_tfidf(Text2_DFM)
-Text3_TFIDFRaw<-dfm_tfidf(Text3_DFM)
+# create tfidf weighting
+# raw text
+DFM = dfm(corpus, tolower = FALSE, stem = FALSE, remove = NULL)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
 
-#Caculate TF-IDF with stopwords removed
-Text1_TFIDFSW<-dfm_tfidf(dfm(Text1_DFM, remove = stopwords("english")))
-Text2_TFIDFSW<-dfm_tfidf(dfm(Text2_DFM, remove = stopwords("english")))
-Text3_TFIDFSW<-dfm_tfidf(dfm(Text3_DFM, remove = stopwords("english")))
+# removing stopwords
+DFM = dfm(corpus, tolower = FALSE, stem = FALSE, remove = stopwords("english"))
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+# removing punctuation
 
-#Calcualte TF-IDF with punctuation removed
-Text1_TFIDFPunc<-dfm_tfidf(dfm(corpus[1], remove_punct = TRUE))
-Text2_TFIDFPunc<-dfm_tfidf(dfm(corpus[2], remove_punct = TRUE))
-Text3_TFIDFPunc<-dfm_tfidf(dfm(corpus[3], remove_punct = TRUE))
+punctuation = c(".", ",", ":", ";", "(", ")")
+DFM = dfm(corpus, tolower = FALSE, stem = FALSE, remove = punctuation)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
 
-#Calculate TF-IDF - words stemmed
-Text1_TFIDFStem<-dfm_tfidf(dfm(Text1_DFM, stem=TRUE))
-Text2_TFIDFStem<-dfm_tfidf(dfm(Text2_DFM, stem=TRUE))
-Text3_TFIDFStem<-dfm_tfidf(dfm(Text3_DFM, stem=TRUE))
+# stemming words
+DFM = dfm(corpus, tolower = FALSE, stem = TRUE, remove = NULL)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
 
-#TF-IDF No stop, No Punc, Words Stemmed
-Text1_TFIDF<-dfm_tfidf(dfm(corpus[1], remove=stopwords('english'), remove_punct=TRUE, stem=TRUE))
-Text2_TFIDF<-dfm_tfidf(dfm(corpus[2], remove=stopwords('english'), remove_punct=TRUE, stem=TRUE))
-Text3_TFIDF<-dfm_tfidf(dfm(corpus[3], remove=stopwords('english'), remove_punct=TRUE, stem=TRUE))
-
+# combining 2-4
+punctuation = c(".", ",", ":", ";", "(", ")")
+DFM = dfm(corpus, tolower = FALSE, stem = TRUE, remove = c(punctuation, stopwords("english")))
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
 ```
-
 
 ### Task 6: Parts-of-Speech
 For all texts, calculate the part-of-speech proportions and find out which POS tag is used most often by you in each text.
 
 ```{r}
-#Load Library
-require(qdap)
+#install.packages("qdap")
+library("qdap")
+# apply part of speech function on each text of the corpus + sort list of frequencies/proportions of tags
+PoSText1 = pos(Corpus[1])
+#PT1Sort = sort(PoSText1$POSfreq, decreasing = TRUE)
+PT1Sort = sort(PoSText1$POSprop, decreasing = TRUE)
 
-#Run Part-Of-Speech tagging
-Text1_Tagged<-pos(corpus[1])
-Text2_Tagged<-pos(corpus[2])
-Text3_Tagged<-pos(corpus[3])
+PoSText2 = pos(Corpus[2])
+#PT2Sort = sort(PoSText2$POSfreq, decreasing = TRUE)
+PT2Sort = sort(PoSText2$POSprop, decreasing = TRUE)
 
-#Get POS proportions
-Text1_Tagged$POSprop
-Text2_Tagged$POSprop
-Text3_Tagged$POSprop
+PoSText3 = pos(Corpus[3])
+#PT3Sort = sort(PoSText3$POSfreq, decreasing = TRUE)
+PT3Sort = sort(PoSText3$POSprop, decreasing = TRUE)
+
+# display frequencies of PoS tags (decreasing) - look up PoS abbreviations online for better understanding
+PT1Sort
+PT2Sort
+PT3Sort
 ```
 
+---

@@ -1,0 +1,157 @@
+---
+title: "Text data & text mining"
+subtite: "Homework week 4"
+author: "B Kleinberg"
+subtitle: Advanced Crime Analysis, UCL
+output: html_notebook
+---
+
+## Aims of this homework
+
+- learn the basics of dealing with text data in R
+- compute some text metrics
+- build a linguistic representation of your own texts
+
+
+## Task 1: Creating your corpus
+
+In this homework, you will use your own text data for some initial linguistic analysis.
+
+Select at least three assignments that you handed in as coursework in your BSc so far. To import the into R, either copy-and-paste them as raw text into a string variable, or save the raw text as a `.txt` file and read these files in.
+
+Create a corpus of these texts using the `quanteda` package.
+
+```{r}
+#install.packages("quanteda")
+#install.packages("readtext")
+library(quanteda)
+library(readtext)
+
+# reading in documents from txt files
+path = "D:/Andere Daten/UCL/PGTA courses/Advanced Crime Analysis/ucl_aca_20182019-master/homework/week 4/"
+text123 = readtext(paste(path, "*.txt", sep = ""))
+
+# create corpus
+Corpus = corpus(text123)
+summary(Corpus)
+```
+
+
+## Task 2: Text statistics
+
+Calculate the average number of characters per word and the average number of words per sentence.
+
+```{r}
+# obtain character/word/sentence lengths for each text
+numwords = ntoken(Corpus)
+numchar1 = nchar(Corpus[1])
+numchar2 = nchar(Corpus[2])
+numchar3 = nchar(Corpus[3])
+numsent = nsentence(Corpus)
+
+# calculate word averages for each sentence for each document
+wat1 = numwords[1]/numsent[1]
+wat2 = numwords[2]/numsent[2]
+wat3 = numwords[3]/numsent[3]
+
+# calculate character averages for each sentence for each document
+cat1 = numchar1/numwords[1]
+cat2 = numchar2/numwords[2]
+cat3 = numchar2/numwords[3]
+
+
+```
+
+## Task 3: Text metrics
+
+What is the type-token ratio (TTR) of your texts (each text individually)?
+
+```{r}
+# create document-feature matrix
+DFM = dfm(Corpus)
+# create ratio
+TTR = textstat_lexdiv(DFM)
+# select only traditional TT - ratio
+TTR[,1:2]
+
+```
+
+## Task 4: Word frequencies
+
+Build a term frequency count representation, and retrieve the top features (hint: `topfeatures`) for each text.
+
+```{r}
+# create top feature frequency of each text
+topfeatures(DFM[1])
+topfeatures(DFM[2])
+topfeatures(DFM[3])
+
+```
+
+## Task 5: TF-IDF
+
+Now build a TF-IDF weighted representation of your corpus. Perform this transformation in five different ways: (1) based on the raw texts, (2) removing stopwords, (3) removing punctuation, (4) stemming the words, and (5) combining (2)-(4).
+
+```{r}
+# create tfidf weighting
+# raw text
+DFM = dfm(Corpus, tolower = FALSE, stem = FALSE, remove = NULL)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+
+# removing stopwords
+DFM = dfm(Corpus, tolower = FALSE, stem = FALSE, remove = stopwords("english"))
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+# removing punctuation
+
+punctuation = c(".", ",", ":", ";", "(", ")")
+DFM = dfm(Corpus, tolower = FALSE, stem = FALSE, remove = punctuation)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+
+# stemming words
+DFM = dfm(Corpus, tolower = FALSE, stem = TRUE, remove = NULL)
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+
+# combining 2-4
+punctuation = c(".", ",", ":", ";", "(", ")")
+DFM = dfm(Corpus, tolower = FALSE, stem = TRUE, remove = c(punctuation, stopwords("english")))
+text_tfidf = dfm_tfidf(DFM, scheme_tf = "prop", scheme_df = "count")
+head(text_tfidf[,1:5])
+
+```
+
+
+## Task 6: Parts-of-speech
+
+For all texts, calculate the part-of-speech proportions and find out which POS tag is used most often by you in each text.
+
+```{r}
+#install.packages("qdap")
+library("qdap")
+# apply part of speech function on each text of the corpus + sort list of frequencies/proportions of tags
+PoSText1 = pos(Corpus[1])
+#PT1Sort = sort(PoSText1$POSfreq, decreasing = TRUE)
+PT1Sort = sort(PoSText1$POSprop, decreasing = TRUE)
+
+PoSText2 = pos(Corpus[2])
+#PT2Sort = sort(PoSText2$POSfreq, decreasing = TRUE)
+PT2Sort = sort(PoSText2$POSprop, decreasing = TRUE)
+
+PoSText3 = pos(Corpus[3])
+#PT3Sort = sort(PoSText3$POSfreq, decreasing = TRUE)
+PT3Sort = sort(PoSText3$POSprop, decreasing = TRUE)
+
+# display frequencies of PoS tags (decreasing) - look up PoS abbreviations online for better understanding
+PT1Sort
+PT2Sort
+PT3Sort
+
+
+```
+
+## END
+
+---
