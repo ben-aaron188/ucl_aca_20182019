@@ -100,6 +100,7 @@ Required reading:
 
 Required reading:
 
+- [http://www.r2d3.us/visual-intro-to-machine-learning-part-1/](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 - Kuhn, M., & Johnson, K. (2013). Applied Predictive Modeling. New York: Springer-Verlag. Retrieved from https://www.springer.com/de/book/9781461468486
     - Chapter: "Introduction"
     - Chapter: "A Short Tour of the Predictive Modeling Process"
