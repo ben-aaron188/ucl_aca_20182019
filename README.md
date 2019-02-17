@@ -92,6 +92,26 @@ Required reading:
 - Pérez-Rosas, V., Kleinberg, B., Lefevre, A., & Mihalcea, R. (2018). Automatic Detection of Fake News. In Proceedings of the 27th International Conference on Computational Linguistics (pp. 3391–3401). Santa Fe, New Mexico, USA: Association for Computational Linguistics. Retrieved from [http://aclweb.org/anthology/C18-1287](http://aclweb.org/anthology/C18-1287)
 
 
+
+#### Week 6: MACHINE LEARNING 1
+
+- Lecture 6: Machine learning in R 1 [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture6_ml1.html), [(pdf)]()
+- Homework: [Supervised machine learning in R]()
+
+Required reading:
+
+- Kuhn, M., & Johnson, K. (2013). Applied Predictive Modeling. New York: Springer-Verlag. Retrieved from https://www.springer.com/de/book/9781461468486
+    - Chapter: "Introduction"
+    - Chapter: "A Short Tour of the Predictive Modeling Process"
+    
+Recommended reading:
+
+- Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (2nd ed.). New York: Springer-Verlag. Retrieved from https://www.springer.com/de/book/9780387848570
+    - Chapter: "Overview of Supervised Learning" 
+    - Chapter: "Linear Methods for Classification"
+
+
+
 ---
 
 Module convenor and author: Bennett Kleinberg (bennett.kleinberg@ucl.ac.uk)
