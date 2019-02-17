@@ -95,7 +95,7 @@ Required reading:
 
 #### Week 6: MACHINE LEARNING 1
 
-- Lecture 6: Machine learning in R 1 [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture6_ml1.html), [(pdf)]()
+- Lecture 6: Machine learning in R 1 [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture6_ml1.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture6_ml1.pdf)
 - Homework: [Supervised machine learning in R]()
 
 Required reading:
