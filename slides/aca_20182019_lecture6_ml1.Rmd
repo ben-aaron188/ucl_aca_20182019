@@ -1,0 +1,782 @@
+---
+title: "Machine learning 1"
+subtitle: "Advanced Crime Analysis UCL"
+author: Bennett Kleinberg
+date: 18 Feb 2019
+output:
+  revealjs::revealjs_presentation:
+    theme: dark
+    fig_width: 7 
+    fig_height: 5
+    highlight: zenburn
+    center: true
+    css: custom.css
+---
+
+##  {data-background="./img/ucl_artwork/ucl-banner-land-darkblue-rgb.png" data-background-size="70%" data-background-position="top" data-background-opacity="1"}
+
+MACHINE LEARNING 1
+
+## Today {.left_aligned}
+
+- Recap week 1-5
+- Intro to machine learning
+    - Types of ML
+    - Supervised machine learning
+    - Step-by-step example
+    - Important algorithms
+
+## Recap Week 2
+
+### APIs
+
+## Recap week 3
+
+### Webscraping
+
+## Recap week 4
+
+### Text mining 1
+
+## Recap week 5
+
+### Text mining 2
+
+
+## Machine learning? {.left_aligned}
+
+- core idea: a system learns from experience
+- no precise instructions
+
+Applications?
+
+## Why do we want this?
+
+Step back...
+
+How did you perform regression analysis in PSM2?
+
+## Okay ...
+
+- you've got one outcome variable (e.g. number of shooting victims)
+- and two predictors (e.g. gender of shooter, age)
+- typical approach $victims ~ gender + age$
+- regression equation with intercept, beta coefficients and inferred error term
+
+
+## But!
+
+Often we have no idea about the relationships.
+
+- too many predictors
+- too diverse a problem
+- simply unknown
+
+## ML in general
+
+- concered with patterns in data
+- learning from data
+- more experience results typically in better models
+- data, data, data
+
+##
+
+### Types of machine learning
+
+## Broad categories
+
+- Supervised learning (today)
+- Unsupervised learning (next week)
+- Hybrid models
+- Deep learning
+- Reinforcement learning
+
+## Deep learning
+
+Inspired by the human brain.
+
+- MIT's course website [https://deeplearning.mit.edu/](https://deeplearning.mit.edu/)
+- Lex Fridman's courses from MIT --> [YouTube](https://www.youtube.com/watch?v=O5xeyoRL95U)
+
+## Reinforcement learning
+
+- Excellent YouTube examples from [code bullet](https://www.youtube.com/watch?v=Yo2SepcNyw4)
+- e.g. [AI Learns to play the Worlds Hardest Game](https://www.youtube.com/watch?v=Yo2SepcNyw4)
+
+[Demo](https://code-bullet.github.io/WorldsHardestGameAI/WHG%20-%20level2/)
+
+## 
+
+### SUPERVISED LEARNING
+
+## WTF is supervised?
+
+- supervised = labeled data
+- i.e. you know the outcome
+- flipped logic
+
+Contrary: unsupervised.
+
+## Classes of supervised learning
+
+- classification (e.g. death/alive, fake/real)
+- regression (e.g. income, number of deaths)
+
+## Mini example
+
+_Supervised classification_
+
+```{r echo=F}
+set.seed(123456)
+data1 = data.frame(gender = rep(c('male', 'female'), each=10)
+                   , salary = round(c(rnorm(10, 35000, 5000), rnorm(10, 25000, 10000)), 0))
+```
+
+
+## Simple example
+
+- gender prediction 
+- based on salary
+
+```{r echo=F}
+knitr::kable(data1[c(1:4, 11:14),])
+```
+
+##
+
+```{r echo=F}
+data2 = data1[sample(1:20, 20), ]
+{plot(data2$salary, col=data2$gender)}
+```
+
+## 
+
+How to best separate the data into two groups?
+
+```{r echo=F}
+{plot(data1$salary, col=data1$gender)
+  abline(v=10)}
+```
+
+## Core idea
+
+- learn relationship between
+    - outcome (target) variable
+    - features (predictors)
+- "learning" is done through an algorithm
+    - simplest algorithm: `if A then B`
+
+## Idea 1: male salary threshold
+
+```{r echo=F}
+{plot(data1$salary, col=data1$gender)
+  abline(v=10)
+  abline(h=min(data1$salary[data1$gender == 'male']), col='blue', lty=2)}
+```
+
+
+## Idea 1: male salary threshold
+
+```{r}
+minimum_male = min(data1$salary[data1$gender == 'male']) #32869
+data1$my_prediction = ifelse(data1$salary >= minimum_male, 'male', 'female')
+```
+
+```{r echo=F}
+{plot(data1$salary, col=as.factor(data1$my_prediction)
+      , main = "ifelse(data1$salary >= minimum_male, 'male', 'female')")
+  abline(v=10)
+  abline(h=min(data1$salary[data1$gender == 'male']), col='blue', lty=2)}
+```
+
+## Idea 2: female salary threshold
+
+```{r echo=F}
+{plot(data1$salary, col=data1$gender)
+  abline(v=10)
+  abline(h=max(data1$salary[data1$gender == 'female']), col='blue', lty=4)}
+```
+
+
+## Idea 2: female salary threshold
+
+```{r}
+maximum_female = max(data1$salary[data1$gender == 'female']) #41682
+data1$my_prediction2 = ifelse(data1$salary <= maximum_female, 'female', 'male')
+```
+
+```{r echo=F}
+{plot(data1$salary, col=as.factor(data1$my_prediction2)
+      , main = "ifelse(data1$salary <= maximum_female, 'female', 'male')")
+  abline(v=10)
+  abline(h=max(data1$salary[data1$gender == 'female']), col='blue', lty=4)}
+```
+
+##
+
+But this is not learning!
+
+## Stepwise supervised ML
+
+- clarify what `outcome` and `features` are
+- determine which classification algorithm to use
+- train the model
+
+## Enter: `caret`
+
+```{r message=F}
+library(caret)
+```
+
+- excellent package for ML in R
+- well-documented [website](https://topepo.github.io/caret/index.html)
+- common interface for [200+ models](https://topepo.github.io/caret/available-models.html)
+
+## `caret` in practice
+
+
+```{r echo=F}
+set.seed(123456)
+data2 = data.frame(gender = rep(c('male', 'female'), each=10)
+                   , salary = round(c(rnorm(10, 35000, 5000), rnorm(10, 25000, 10000)), 0)
+                   , height = round(c(rnorm(10, 178, 15), rnorm(10, 165, 15)), 0))
+plot(data2$salary, data2$height, col=data2$gender, main="Real gender")
+```
+
+## `caret` in practice
+
+```{r}
+my_first_model = train(gender ~ .
+                       , data = data2
+                       , method = "svmLinear"
+                       )
+```
+
+Now you have trained a model!
+
+~ you have taught an algorithm to learn to predict gender from salary & height
+
+##
+
+<img src='./img/jo.gif'>
+
+But now what?
+
+## Put your model to use
+
+Make predictions:
+
+```{r}
+data2$model_predictions = predict(my_first_model, data2)
+```
+
+```{r echo=F}
+knitr::kable(table(data2$gender, data2$model_predictions))
+```
+
+##
+
+```{r echo=F}
+plot(data2$salary, data2$height, col=data2$model_predictions, main="Algorithm-predicted gender")
+```
+
+##
+
+```{r echo=F}
+library(e1071)
+set.seed(123456)
+data3 = data.frame(gender = rep(c('male', 'female'), each=10)
+                   , salary = round(c(rnorm(10, 35000, 5000), rnorm(10, 25000, 10000)), 0)
+                   , height = round(c(rnorm(10, 178, 15), rnorm(10, 165, 15)), 0))
+m1 = svm(gender~., data=data3)
+plot(m1, data3, svSymbol = 2, dataSymbol = 2)
+```
+
+##
+
+### The key challenge?
+
+Think about what we did...
+
+## Problem of inductive bias
+
+- remember: we learn from the data
+- but what we really want to know is: how does it work on "unseen" data
+
+How to solve this?
+
+## Keep some data for yourself
+
+Train/test split
+
+- split the data (e.g. 80%/20%, 60%/40%)
+- use one part as TRAINING SET
+- use the other as TEST SET
+
+
+## `caret` helps!
+
+```{r echo=F}
+set.seed(123456)
+data2 = data.frame(gender = rep(c('male', 'female'), each=10)
+                   , salary = round(c(rnorm(10, 35000, 5000), rnorm(10, 25000, 10000)), 0)
+                   , height = round(c(rnorm(10, 178, 15), rnorm(10, 165, 15)), 0))
+```
+
+```{r}
+set.seed(1)
+in_training = createDataPartition(y = data1$gender
+                                  , p = .8
+                                  , list = FALSE
+                                  )
+in_training
+```
+
+## Splitting the data
+
+```{r}
+training_data = data2[ in_training,]
+test_data = data2[-in_training,]
+```
+
+```{r echo=F}
+knitr::kable(test_data)
+```
+
+## Pipeline again
+
+- define outcome (DONE)
+- define features (DONE)
+- build model (DONE)
+    - but this time: on the TRAINING SET
+- evaluate model
+    - this time: on the TEST SET
+    
+    
+##
+
+Teach the SVM:
+
+```{r}
+my_second_model = train(gender ~ .
+                       , data = training_data
+                       , method = "svmLinear"
+                       )
+```
+
+Fit/test the SVM:
+
+```{r}
+model_predictions = predict(my_second_model, test_data)
+```
+
+```{r echo=F}
+knitr::kable(table(test_data$gender, model_predictions))
+```
+
+## But!
+
+- our model might be really dependent on the training data
+- we want to be more careful
+- Can we do some kind of safeguarding in the training data?
+
+## Cross-validation
+
+K-fold cross-validation
+
+<img src='./img/kfold_cv.png'>
+
+<small>[Img source](https://my.oschina.net/Bettyty/blog/751627)</small>
+
+## Specifying CV in `caret`
+
+```{r}
+training_controls = trainControl(method="cv"
+                                 , number = 4
+                                 )
+
+my_third_model = train(gender ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+```
+
+##
+
+```{r}
+my_third_model
+```
+
+## Assess the CVed model
+
+```{r}
+model_predictions = predict(my_third_model, test_data)
+```
+
+```{r echo=F}
+knitr::kable(table(test_data$gender, model_predictions))
+```
+
+##
+
+##
+
+### Let's apply this!
+
+
+##
+
+Fakenews corpus: 1000 fake, 1000 real [(data)](https://github.com/sophiabiancalatessa/FakeNewsDeepLearning/tree/master/data/processed)
+
+```{r echo=F, message=F}
+library(quanteda)
+load('./data/fakenews_corpus.RData')
+corpus_tokenised = tokens(fakenews_corpus)
+ngrams_extract_1 = dfm(x = corpus_tokenised
+                       , ngrams = 1
+                       , verbose = F
+                       , remove_punct = T
+                       , stem = F
+                       , remove = stopwords()
+                       )
+ngrams_extract_1 = dfm_trim(ngrams_extract_1, sparsity = 0.95)
+fake_news_data = as.data.frame(ngrams_extract_1)
+fake_news_data$outcome = fakenews_corpus$documents$veracity
+fake_news_data = fake_news_data[, -1]
+```
+
+##
+
+```{r echo=F}
+knitr::kable(fake_news_data[c(1:3, 1000:1003), c(4:9,799)])
+```
+
+
+## Problem
+
+- 1000 fake and 1000 real news items
+- only source of information: text
+- often fact-checking not available (yet)
+- idea: linguistic traces help differentiate fake and real news
+
+```{r}
+dim(fake_news_data)
+```
+
+## Stepwise ML approach
+
+- the outcome variable?
+- the features?
+- the algorithm?
+- the train/test split?
+- the training set cross-validation?
+
+## Model 1
+
+|            |       Model 1|
+|:-----------|-------------:|
+|outcome     |  fake vs real|
+|features    |  ngram freqs.|
+|algorithm   |    Linear SVM|
+|train/test  |         80/20|
+|Cross-val.  |       10-fold|
+
+## Step 1
+
+Partition the data
+
+```{r}
+set.seed(2019)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .8 # <-- split value
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+```
+
+```{r echo=F}
+knitr::kable(table(training_data$outcome), caption = 'Training data')
+```
+
+## Step 2
+
+Define training controls
+
+```{r}
+training_controls = trainControl(method="cv"
+                                 , number = 10
+                                 )
+```
+
+## Step 3
+
+Train the model
+
+```{r}
+fakenews_model_1 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+```
+
+## Step 4
+
+Fit the model
+
+```{r}
+model_1.predictions = predict(fakenews_model_1, test_data)
+```
+
+```{r echo=F}
+knitr::kable(table(test_data$outcome, model_1.predictions))
+```
+
+_(159+158)/400 = 0.73_
+
+## The strength of `caret`...
+
+Let's see whether we can do better
+
+|            |       Model 1|       Model 2|
+|:-----------|-------------:|-------------:|
+|outcome     |  fake vs real|             ~| 
+|features    |  ngram freqs.|             ~|
+|algorithm   |    Linear SVM|             ~|
+|train/test  |         80/20|         60/40|
+|Cross-val.  |       10-fold|        5-fold|
+
+## Model 2
+
+Step 1: Splitting the data
+
+```{r}
+set.seed(2019)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .6 # <-- split value
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+```
+
+##
+
+Step 2: Define training controls
+
+```{r}
+training_controls = trainControl(method="cv"
+                                 , number = 5
+                                 )
+```
+
+
+##
+
+Step 3: Train the model
+
+```{r}
+fakenews_model_2 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+```
+
+## 
+
+Step 4: Fit the model
+
+```{r}
+model_2.predictions = predict(fakenews_model_2, test_data)
+```
+
+```{r echo=F}
+knitr::kable(table(test_data$outcome, model_2.predictions))
+```
+
+_(329+309)/800 = 0.80_
+
+
+## Looking a step further
+
+What's driving the classification?
+
+```{r echo=F}
+fake_news_data_ = fake_news_data
+fake_news_data_$outcome = as.factor(fake_news_data_$outcome)
+levels(fake_news_data_$outcome) = c(1,0)
+
+set.seed(2019)
+in_training = createDataPartition(y = fake_news_data_$outcome
+                                  , p = .8 # <-- split value
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data_[ in_training,]
+test_data = fake_news_data_[-in_training,]
+
+training_controls = trainControl(method="cv"
+                                 , number = 10
+                                 )
+
+fakenews_model_1_ = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+model_1.predictions = predict(fakenews_model_1, test_data)
+```
+
+
+```{r}
+varImp(fakenews_model_1_)
+```
+
+## Important features
+
+"said"
+
+```{r}
+tapply(training_data$said, training_data$outcome, mean)
+```
+
+"first"
+
+```{r}
+tapply(training_data$first, training_data$outcome, mean)
+```
+
+
+## Making full use of `caret`
+
+- what if we want to use a different classification algorithm?
+
+Selection of models --> [https://topepo.github.io/caret/available-models.html](https://topepo.github.io/caret/available-models.html)
+
+## Intermezzo to different algorithms
+
+- Support Vector Machine [video](https://www.youtube.com/watch?v=N1vOgolbjSc)
+- Decision Trees
+- Random Forests
+- worth knowing:
+    - Naive Bayes
+    - Logistic regression
+    - kNN
+
+
+## Decision Trees
+
+```{r echo=F}
+# Load rpart and rpart.plot
+library(rpart)
+library(rpart.plot)
+
+# Create a decision tree model
+decision_tree = rpart(outcome ~ .
+                      , data=fake_news_data, cp=.02)
+
+# Visualize the decision tree with rpart.plot
+rpart.plot(decision_tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
+```
+
+## Random Forests
+
+- selects random set of training data
+    - builds decision tree
+- = many trees = forest
+- many random trees = random forest
+- averaging the trees (voting)
+
+
+## Model 3
+
+|            |       Model 1|       Model 2|             Model 3|
+|:-----------|-------------:|-------------:|-------------------:|
+|outcome     |  fake vs real|             ~|                   ~|
+|features    |  ngram freqs.|             ~|                   ~|
+|algorithm   |    Linear SVM|             ~|       Random Forest|
+|train/test  |         80/20|         60/40|               70/30|
+|Cross-val.  |       10-fold|        5-fold|  2x Repeated 5-fold|
+
+## Model 3
+
+(skipping data splitting here)
+
+```{r echo=F}
+set.seed(2019)
+in_small_data = createDataPartition(y = fake_news_data_$outcome
+                                  , p = .4 # <-- split value
+                                  , list = FALSE
+                                  )
+fake_news_data_small = fake_news_data[in_small_data,]
+  
+  
+in_training = createDataPartition(y = fake_news_data_small$outcome
+                                  , p = .7 # <-- split value
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data_small[ in_training,]
+test_data = fake_news_data_small[-in_training,]
+```
+
+
+```{r}
+training_controls = trainControl(method="repeatedcv"
+                                 , number = 5
+                                 , repeats = 2
+                                 )
+```
+
+## Model 3
+
+```{r}
+fakenews_model_3 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "ranger"
+                       )
+```
+
+## Model 3
+
+```{r echo=F}
+fakenews_model_3
+```
+
+
+## Model 3
+
+Make predictions
+
+```{r}
+model_3.predictions = predict(fakenews_model_3, test_data)
+```
+
+```{r echo=F}
+knitr::kable(table(test_data$outcome, model_3.predictions))
+```
+
+_(90+108)/240 = 0.83_
+
+
+## RECAP
+
+- Types of machine learning
+- Supervised ML
+- Cross-validation
+- Using caret
+
+## Outlook
+
+Tutorial tomorrow
+
+**Homework:** Replication of fake news classification
+
+Week 7: Machine learning 2
+
+**Next week:** Unsupervised learning + performance metrics
+
+## END
