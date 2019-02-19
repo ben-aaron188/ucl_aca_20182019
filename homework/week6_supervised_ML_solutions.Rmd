@@ -1,0 +1,276 @@
+---
+title: "Machine learning 1"
+subtite: "Homework week 6"
+author: "B Kleinberg"
+subtitle: Advanced Crime Analysis, UCL
+output: html_notebook
+---
+
+## Aims of this homework
+
+- learn about the basics of supervised machine learning in R
+- reproduce the fake news classification example
+- use the caret interface
+
+
+## Task 1: Preparing the data
+
+You will use the fake news dataset from the lecture. Load that dataset (located in `./data/fakenews_corpus.RData`.
+
+```{r}
+#your code here
+load('./data/fakenews_corpus.RData')
+```
+
+Now you will need to extract features from the text. To do this, load the quanteda package, and run the code below that will extract unigrams, apply DFM trimming and bind the 'outcome' variable to the datafram:
+
+```{r}
+library(quanteda)
+corpus_tokenised = tokens(fakenews_corpus)
+ngrams_extract_1 = dfm(x = corpus_tokenised
+                       , ngrams = 1
+                       , verbose = F
+                       , remove_punct = T
+                       , stem = F
+                       , remove = stopwords()
+                       )
+ngrams_extract_1 = dfm_trim(ngrams_extract_1, sparsity = 0.95)
+fake_news_data = as.data.frame(ngrams_extract_1)
+fake_news_data$outcome = fakenews_corpus$documents$veracity
+fake_news_data = fake_news_data[, -1]
+```
+
+Have a look at the first 10 rows and 10 columns of the dataframe `fake_news_data`:
+
+```{r}
+#your code here
+fake_news_data[1:10, 1:10]
+```
+
+
+## Task 2: Splitting the data
+
+We covered in the lecture, that you would need to split your data into a training set and a test set. Load the `caret` package and use the `createDataPartition` function to split the data into a test set of 65% of the data and a training set of 35% of the data.
+
+```{r}
+#your code here
+library(caret)
+set.seed(1234)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .65
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+```
+
+Note: since the partitioning of the data involves a random number initialisation, you will get different results every time you run this code. To avoid this (especially in your assignment), you can set a "seed" that ensures that the random number generation is identical if you run the code again. To do this, use the `set.seed` function BEFORE running the `createDataPartition` function.
+
+
+## Task 3: Training your model
+
+Use a linear Support Vector Machine algorithm and train your model on the training data.
+
+```{r}
+#your code here
+fakenews_model_1 = train(outcome ~ .
+                       , data = training_data
+                       , method = "svmLinear"
+                       )
+```
+
+
+## Task 4: Assessing your model
+
+We discussed why you would want to assess your model on the held-out test data. 
+
+To illustrate the differences, evaluate your model on the TRAINING data using the `predict` function:
+
+```{r}
+#your code here
+model_1.predictions_trainingset = predict(fakenews_model_1, training_data)
+table(training_data$outcome, model_1.predictions_trainingset)
+```
+
+Now do the same on the TEST data. Remember that the test data was never seen by the model and did therefore not occur in the training phase:
+
+```{r}
+#your code here
+model_1.predictions_testset = predict(fakenews_model_1, test_data)
+table(test_data$outcome, model_1.predictions_testset)
+```
+
+What does this show you?
+
+## Task 5: Including training control parameters
+
+We also covered why you would want to apply cross-validation on your model. Include a training control object in your model training phase with a 10 fold cross-validation. Use the same training and test set but build a new model that includes the 10-fold cross-validation:
+
+```{r}
+#your code here
+training_controls = trainControl(method="cv"
+                                 , number = 10
+                                 )
+
+fakenews_model_2 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+model_2.predictions_testset = predict(fakenews_model_2, test_data)
+table(test_data$outcome, model_2.predictions_testset)
+```
+
+Do these results differ from the model without cross-validation?
+
+```{r}
+table(test_data$outcome, model_2.predictions_testset) == table(test_data$outcome, model_1.predictions_testset)
+```
+
+## Task 6: Using k-fold cross-validation on the full dataset
+
+You can also use k-fold cross-validation on the full dataset and iteratively use one fold as the test set (have a look at this [SO post](https://stats.stackexchange.com/questions/270027/what-is-the-difference-between-k-holdout-and-k-fold-cross-validation/270030). Try to implement this in R with 10 folds (hint: you do not need the train/test partition).
+
+```{r}
+#your code here
+fakenews_model_3 = train(outcome ~ .
+                       , data = fake_news_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+```
+
+Now if you try to evaluate the model, you will not that the `predict` function is of little help. This is because it would just fit a model to its own training data. Have a look at this:
+
+```{r}
+#your code here
+
+model_3.predictions = predict(fakenews_model_3, fake_news_data)
+table(fake_news_data$outcome, model_3.predictions)
+
+```
+
+Instead, you want to retrieve the average performance of each of the test sets of the 10 folds. You can do this by using the `confusionMatrix`  function with the model as parameter.
+
+```{r}
+confusionMatrix(fakenews_model_3)
+```
+
+How do these results compare to the previous ones?
+
+## Task 7: Using different classification algorithms
+
+Keep the meta parameters as in your second model (65/35 split, 10 fold CV on the training set) and use the k-nearest neighbour (kNN) classifier. Read about kNN [here](https://medium.com/@adi.bronshtein/a-quick-introduction-to-k-nearest-neighbors-algorithm-62214cea29c7), [here](https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761) and [here](https://www.r-bloggers.com/k-nearest-neighbor-step-by-step-tutorial/).
+
+```{r}
+#your code here
+set.seed(1234)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .65
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+
+training_controls = trainControl(method="cv"
+                                 , number = 10
+                                 )
+
+fakenews_model_4 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "knn"
+                       )
+
+model_4.predictions_testset = predict(fakenews_model_4, test_data)
+table(test_data$outcome, model_4.predictions_testset)
+
+```
+
+## Task 8: The `data, data, data` argument
+
+You will often hear that more data is preferable over fewer data and that especially in ML applications, you need ideally vast amounts of training data.
+
+Look at the effect of the size of the training set by building a model with a 10/90, 20/80, 30/70, and 40/60 training/test set split.
+
+```{r}
+#your code here
+
+#10/90
+set.seed(1234)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .10
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+
+training_controls = trainControl(method="cv"
+                                 , number = 5
+                                 )
+
+fakenews_model_1090 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+model_1090.predictions_testset = predict(fakenews_model_1090, test_data)
+table(test_data$outcome, model_1090.predictions_testset)
+
+#20/80
+set.seed(1234)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .20
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+
+training_controls = trainControl(method="cv"
+                                 , number = 5
+                                 )
+
+fakenews_model_2080 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+model_2080.predictions_testset = predict(fakenews_model_2080, test_data)
+table(test_data$outcome, model_2080.predictions_testset)
+
+
+#30/70
+set.seed(1234)
+in_training = createDataPartition(y = fake_news_data$outcome
+                                  , p = .30
+                                  , list = FALSE
+                                  )
+training_data = fake_news_data[ in_training,]
+test_data = fake_news_data[-in_training,]
+
+training_controls = trainControl(method="cv"
+                                 , number = 5
+                                 )
+
+fakenews_model_3070 = train(outcome ~ .
+                       , data = training_data
+                       , trControl = training_controls
+                       , method = "svmLinear"
+                       )
+
+model_3070.predictions_testset = predict(fakenews_model_3070, test_data)
+table(test_data$outcome, model_3070.predictions_testset)
+
+##...
+```
+
+What do you observe?
+
+
+## END
+
+---
