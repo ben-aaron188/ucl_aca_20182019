@@ -112,6 +112,20 @@ Recommended reading:
     - Chapter: "Linear Methods for Classification"
 
 
+#### Week 7: MACHINE LEARNING 2
+
+- Lecture 7: Unsupervised machine learning in R + performance metrics [(slides)](), [(pdf)]()
+- Tutorial: Machine learning in R
+
+Required reading:
+
+- Gatto, L. (n.d.). An Introduction to Machine Learning with R. Retrieved from https://lgatto.github.io/IntroMachineLearningWithR/unsupervised-learning.html
+    - Chapter 4: Unsupervised learning
+
+Recommended:
+
+-  DataCamp course on Unsupervised Learning in R [https://www.datacamp.com/courses/unsupervised-learning-in-r](https://www.datacamp.com/courses/unsupervised-learning-in-r)
+
 
 ---
 
