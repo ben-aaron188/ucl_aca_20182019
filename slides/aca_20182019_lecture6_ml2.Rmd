@@ -386,8 +386,8 @@ knitr::kable(table(test_data$outcome, model.predictions))
 
 ## Confusion matrix
 
-- true positives (TP): correctly identified real ones
-- true negatives (TN): correctly identified fakes
+- true positives (TP): correctly identified fake ones
+- true negatives (TN): correctly identified real ones
 - false positives (FP): false accusations
 - false negatives (FN): missed fakes
 
