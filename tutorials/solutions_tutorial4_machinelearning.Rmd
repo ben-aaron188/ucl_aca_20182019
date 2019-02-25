@@ -1,0 +1,311 @@
+---
+title: 'Solutions: Machine learning in R'
+author: B Kleinberg
+date: 26 Feb 2019
+subtitle: Dept of Security and Crime Science, UCL
+output: html_notebook
+---
+
+---
+
+Tutorial 4, Advanced Crime Analysis, BSc Security and Crime Science, UCL
+
+---
+
+## Aim of this tutorial
+
+You will use concepts learned in the lectures to:
+
+- prepare data for supervised classification in R
+- run supervised machine learning models in R
+- assess the performance of the models
+- apply unsupervised machine learning models in R
+
+
+## Task 1: Prepare data for supervised classification - predicting political polarity of news channels
+
+(you'll need the `quanteda` package for this one)
+
+For the supervised ML part, you will use the dataset from last tutorial on YouTube transcripts extracted from left-leaning and right-leaning news channels. In the provided dataset, you have the transcripts of 2000 YouTube videos each from FoxNews (a right-leaning US news channel) and from The Young Turks (a left-leaning US news outlet).
+
+Load the original dataframe called `media_data` from `data/media_data.RData`.
+
+```{r}
+#your code here
+load('data/media_data.RData')
+```
+
+Build an ngram model that contains unigrams and bigrams and correct for sparsity so that the tokens are contained in at least 10% of the documents. Make sure to remove [all punctuation, numbers and symbols](https://data.library.virginia.edu/a-beginners-guide-to-text-analysis-with-quanteda/).
+
+```{r}
+#your code here
+library(quanteda)
+
+corpus.media_data = corpus(x = media_data$text)
+
+tokens.media_data = tokens(corpus.media_data
+                           , remove_numbers = T
+                           , remove_punct = T
+                           , remove_symbols = T
+                           , remove_hyphens = T)
+
+dfm.media_data = dfm(tokens.media_data
+                      , ngrams = 1:2
+                      , tolower = T
+                      , stem = T
+                      , remove = stopwords()
+                      )
+
+dfm.media_data = dfm_trim(dfm.media_data, sparsity = 0.90)
+
+#convert to dataframe
+ngrams.media_data = as.data.frame(dfm.media_data)
+
+#add outcome column back in
+ngrams.media_data$outcome = media_data$pol
+
+#remove document id variable
+ngrams.media_data = ngrams.media_data[, -1]
+```
+
+## Task 2: Predict whether a transcript comes froma right or left-leaning YouTube channel
+
+Step 1: split the data
+
+(you need the `caret` package for this one)
+
+```{r}
+#your code here
+library(caret)
+set.seed(2012)
+in_training = createDataPartition(y = ngrams.media_data$outcome
+                                  , p = .8
+                                  , list = FALSE
+                                  )
+
+training_set = ngrams.media_data[in_training, ]
+test_set = ngrams.media_data[-in_training, ]
+```
+
+Have a look at the dimensions of your data. How many features are there?
+
+```{r}
+#your code here
+dim(test_set)
+```
+
+
+Step 2: set your training controls
+
+Here, you can go for a k-fold with a high number of k (e.g. 20).
+
+Make sure to specify `classProbs = T` since we need this for later Area Under the Curve calculations.
+
+```{r}
+#your code here
+training_controls = trainControl(method="cv"
+                                 , number = 20
+                                 , classProbs = T
+                                 )
+```
+
+
+Step 3: train the model
+
+You can use a Linear SVM, for example.
+
+```{r}
+#your code here
+svm.model = train(outcome ~.
+                  , data = training_set
+                  , trControl = training_controls
+                  , method = "svmLinear"
+                  )
+```
+
+Step 4: fit the model
+
+```{r}
+#your code here
+svm.model.predictions = predict(svm.model, test_set)
+```
+
+
+## Task 3: Assess the model performance
+
+Step 1: calculate the accuracy of your model on the test set
+
+```{r}
+#your code here
+table(test_set$outcome, svm.model.predictions)
+```
+
+Step 2: calculate the precision, recall and F1 scores
+
+Stop and think for a second: why do we need these metrics in addition to the accuracy?
+
+```{r}
+#your code here
+confusionMatrix(table(test_set$outcome, svm.model.predictions))
+precision(table(test_set$outcome, svm.model.predictions), relevant = 'l')
+#...
+```
+
+Step 3: calculate the area under the curve
+
+To obtain the area under the curve, remember that we need class probabilities. You can obtain these by creating a new variable that uses the `predict` function with the parameter `type = "prob"`.
+
+```{r}
+#your code here
+svm.model.probs = predict(svm.model, test_set, type = 'prob')[, 1]
+```
+
+(Hint: if done correctly, you will obtain a dataframe with each case of the test set in the rows and two columns - one for the class probabilities in class 1 and one for class 2. You will see that they sum to 1, so you can choose one of them for the AUC calculation. Try it out to proof that the results won't change.)
+
+
+Now use the `pROC` library to calculate the area under the curve.
+
+```{r}
+#your code here
+library(pROC)
+auc.svm_model = roc(response = test_set$outcome
+                    , predictor = svm.model.probs
+                    , ci=T)
+auc.svm_model
+```
+
+Plot the area under the curve (using `plot.roc`:
+
+```{r}
+#your code here
+plot.roc(auc.svm_model, legacy.axes = T)
+```
+
+
+What is your conclusion re. the model you just built?
+
+Finally: Have a look at the features that drive the classifier using `varImp`. Note that the variable importance of caret relies on numerical outcomes - therefore: re-run the model but change the training set so that the outcome variable's levels are numeric (1 and 0) and set `classProbs = F` in the training controls.
+
+Once you identified the most important features, have a look in which class they are more prevalent.
+
+```{r}
+#your code here
+training_set_2 = training_set
+training_set_2$outcome = as.factor(training_set_2$outcome)
+levels(training_set_2$outcome) = c(1, 0)
+
+training_controls = trainControl(method="cv"
+                                 , number = 20
+                                 )
+svm.model_2 = train(outcome ~.
+                  , data = training_set_2
+                  , trControl = training_controls
+                  , method = "svmLinear"
+                  )
+
+#call varImp
+varImp(svm.model_2)
+
+tapply(training_set_2$gonna, training_set_2$outcome, mean)
+```
+
+
+## Task 4: Unsupervised learning on tech titles
+
+Load the data.frame `tech_titles` from the `tech_titles.RData` object located in the `./data` directory. These data are all titles of articles written on the two major tech websites VentureBeat and TechCrunch in 2017 [(dataset details on Kaggle)](https://www.kaggle.com/PromptCloudHQ/titles-by-techcrunch-and-venturebeat-in-2017).
+
+Your task is to represent these titles as unigrams and find out whether there are clusters in the data.
+
+Step 1: Load the data
+
+```{r}
+#your code here
+load('./data/tech_titles.RData')
+```
+
+Step 2: Create the unigrams
+
+(apply preprocessing where you think this is necessary)
+
+```{r}
+#your code here
+library(quanteda)
+
+corpus.tech_titles = corpus(tech_titles$title)
+tokens.tech_titles = tokens(corpus.tech_titles
+                            , remove_numbers = T
+                            , remove_punct = T
+                            , remove_symbols = T
+                            , remove_hyphens = T
+                            )
+dfm.tech_titles = dfm(tokens.tech_titles
+                      , ngrams = 1
+                      , tolower = T
+                      , stem = T
+                      , remove = stopwords()
+                      )
+
+dfm.tech_titles = dfm_trim(dfm.tech_titles, sparsity = 0.99)
+```
+
+Step 3: Determine the number of clusters
+
+Use the elbow method:
+
+(note: you will get an error here, try to figure out why and solve it!)
+
+```{r}
+#your code here
+df_dfm.tech_titles = as.data.frame(dfm.tech_titles)[, -1]
+
+wss = numeric()
+
+for(i in 1:20){
+  model_i = kmeans(x = df_dfm.tech_titles, centers = i, nstart = 10, iter.max = 10)  
+  wss[i] = model_i$tot.withinss
+}
+
+plot(1:20, wss)
+```
+
+
+Step 4: Build the final model
+
+```{r}
+#your code here
+kmeans_model = kmeans(x = df_dfm.tech_titles
+                      , centers = 4
+                      , nstart = 10
+                      , iter.max = 20)
+```
+
+Step 5: Interpret the class membership
+
+Tip: 
+
+- assign the cluster membership to a column in the original dataframe
+- then aggregate the unigram frequencies by cluster
+    - this returns the average freq per unigram per cluster
+- now sort the frequencies per cluster separately to see what the clusters are about
+
+```{r}
+#your code here
+df_dfm.tech_titles$cluster = kmeans_model$cluster
+
+aggregated_clusters = aggregate(df_dfm.tech_titles
+                                , by = list(df_dfm.tech_titles$cluster)
+                                , mean)
+
+aggregated_clusters = aggregated_clusters[, -c(1, 120)]
+
+cluster1_ordered = sort(aggregated_clusters[1,], decreasing = T)
+cluster2_ordered = sort(aggregated_clusters[2,], decreasing = T)
+cluster3_ordered = sort(aggregated_clusters[3,], decreasing = T)
+cluster4_ordered = sort(aggregated_clusters[4,], decreasing = T)
+```
+
+
+
+---
+
+## END

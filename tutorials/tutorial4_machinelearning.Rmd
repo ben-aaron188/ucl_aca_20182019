@@ -1,0 +1,210 @@
+---
+title: 'Machine learning in R'
+author: B Kleinberg
+date: 26 Feb 2019
+subtitle: Dept of Security and Crime Science, UCL
+output: html_notebook
+---
+
+---
+
+Tutorial 4, Advanced Crime Analysis, BSc Security and Crime Science, UCL
+
+---
+
+## Aim of this tutorial
+
+You will use concepts learned in the lectures to:
+
+- prepare data for supervised classification in R
+- run supervised machine learning models in R
+- assess the performance of the models
+- apply unsupervised machine learning models in R
+
+
+## Task 1: Prepare data for supervised classification - predicting political polarity of news channels
+
+(you'll need the `quanteda` package for this one)
+
+For the supervised ML part, you will use the dataset from last tutorial on YouTube transcripts extracted from left-leaning and right-leaning news channels. In the provided dataset, you have the transcripts of 2000 YouTube videos each from FoxNews (a right-leaning US news channel) and from The Young Turks (a left-leaning US news outlet).
+
+Load the original dataframe called `media_data` from `data/media_data.RData`.
+
+```{r}
+#your code here
+
+```
+
+Build an ngram model that contains unigrams and bigrams and correct for sparsity so that the tokens are contained in at least 10% of the documents. Make sure to remove [all punctuation, numbers and symbols](https://data.library.virginia.edu/a-beginners-guide-to-text-analysis-with-quanteda/).
+
+```{r}
+#your code here
+
+```
+
+## Task 2: Predict whether a transcript comes froma right or left-leaning YouTube channel
+
+Step 1: split the data
+
+(you need the `caret` package for this one)
+
+```{r}
+#your code here
+
+```
+
+Have a look at the dimensions of your data. How many features are there?
+
+```{r}
+#your code here
+
+```
+
+
+Step 2: set your training controls
+
+Here, you can go for a k-fold with a high number of k (e.g. 20).
+
+Make sure to specify `classProbs = T` since we need this for later Area Under the Curve calculations.
+
+```{r}
+#your code here
+
+```
+
+
+Step 3: train the model
+
+You can use a Linear SVM, for example.
+
+```{r}
+#your code here
+
+```
+
+Step 4: fit the model
+
+```{r}
+#your code here
+
+```
+
+
+## Task 3: Assess the model performance
+
+Step 1: calculate the accuracy of your model on the test set
+
+```{r}
+#your code here
+
+```
+
+Step 2: calculate the precision, recall and F1 scores
+
+Stop and think for a second: why do we need these metrics in addition to the accuracy?
+
+```{r}
+#your code here
+
+#...
+```
+
+Step 3: calculate the area under the curve
+
+To obtain the area under the curve, remember that we need class probabilities. You can obtain these by creating a new variable that uses the `predict` function with the parameter `type = "prob"`.
+
+```{r}
+#your code here
+
+```
+
+(Hint: if done correctly, you will obtain a dataframe with each case of the test set in the rows and two columns - one for the class probabilities in class 1 and one for class 2. You will see that they sum to 1, so you can choose one of them for the AUC calculation. Try it out to proof that the results won't change.)
+
+
+Now use the `pROC` library to calculate the area under the curve.
+
+```{r}
+#your code here
+
+```
+
+Plot the area under the curve (using `plot.roc`:
+
+```{r}
+#your code here
+
+```
+
+
+What is your conclusion re. the model you just built?
+
+Finally: Have a look at the features that drive the classifier using `varImp`. Note that the variable importance of caret relies on numerical outcomes - therefore: re-run the model but change the training set so that the outcome variable's levels are numeric (1 and 0) and set `classProbs = F` in the training controls.
+
+Once you identified the most important features, have a look in which class they are more prevalent.
+
+```{r}
+#your code here
+
+```
+
+
+## Task 4: Unsupervised learning on tech titles
+
+Load the data.frame `tech_titles` from the `tech_titles.RData` object located in the `./data` directory. These data are all titles of articles written on the two major tech websites VentureBeat and TechCrunch in 2017 [(dataset details on Kaggle)](https://www.kaggle.com/PromptCloudHQ/titles-by-techcrunch-and-venturebeat-in-2017).
+
+Your task is to represent these titles as unigrams and find out whether there are clusters in the data.
+
+Step 1: Load the data
+
+```{r}
+#your code here
+
+```
+
+Step 2: Create the unigrams
+
+(apply preprocessing where you think this is necessary)
+
+```{r}
+#your code here
+
+```
+
+Step 3: Determine the number of clusters
+
+Use the elbow method:
+
+(note: you will get an error here, try to figure out why and solve it!)
+
+```{r}
+#your code here
+
+```
+
+
+Step 4: Build the final model
+
+```{r}
+#your code here
+
+```
+
+Step 5: Interpret the class membership
+
+Tip: 
+
+- assign the cluster membership to a column in the original dataframe
+- then aggregate the unigram frequencies by cluster
+    - this returns the average freq per unigram per cluster
+- now sort the frequencies per cluster separately to see what the clusters are about
+
+```{r}
+#your code here
+
+```
+
+
+
+---
+
+## END
