@@ -115,7 +115,7 @@ Recommended reading:
 #### Week 7: MACHINE LEARNING 2
 
 - Lecture 7: Unsupervised machine learning in R + performance metrics [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture6_ml2.html), [(pdf)](https://github.com/ben-aaron188/ucl_aca_20182019/blob/master/slides/aca_20182019_lecture6_ml2.pdf)
-- Tutorial: Machine learning in R
+- Tutorial: [Machine learning in R](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/tutorial4_machinelearning.nb.html), [(SOLUTIONS)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/tutorials/solutions_tutorial4_machinelearning.nb.html)
 
 Required reading:
 
