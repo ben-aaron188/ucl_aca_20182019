@@ -201,19 +201,6 @@ You will learn how to (1) build, run, evaluate supervised machine learning model
 
 ### Week 8 (28): 4 Mar
 
-Lecture: Applied predictive modelling
-
-Things we will cover:
-
-- Case-studies of the data science workflow for crime science
-- Guide through all steps of the full data science pipeline for crime scientists (from web-scraping via text mining to machine learning models)
-- Guest talk (2nd half)
-
-
-No tutorial.
-
-### Week 9 (29): 11+12 Mar
-
 Lecture: Advanced, promises and problems of Data Science for crime science
 
 Things we will cover:
@@ -223,6 +210,18 @@ Things we will cover:
 - Ethical considerations of data science for crime scientists
 - Outlook on the future
 - The technology fallacy
+- 2nd half: guest talk "R Notebooks and R Markdown" (Isabelle van der Vegt)
+
+No tutorial.
+
+### Week 9 (29): 11+12 Mar
+
+Lecture: Applied predictive modelling
+
+Things we will cover:
+
+- Case-studies of the data science workflow for crime science
+- Guide through all steps of the full data science pipeline for crime scientists (from web-scraping via text mining to machine learning models)
 
 _Peer-feedback: the lecture includes the peer-feedback session for the Applied Data Science Project._
 

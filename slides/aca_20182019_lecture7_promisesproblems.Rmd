@@ -1,0 +1,60 @@
+---
+title: "Promises and problems of Data Science for crime science"
+subtitle: "Advanced Crime Analysis UCL"
+author: "Bennett Kleinberg"
+date: "4 March 2019"
+output:
+  revealjs::revealjs_presentation:
+    theme: dark
+    fig_width: 7 
+    fig_height: 5
+    highlight: zenburn
+    center: true
+    css: custom.css
+---
+
+##  {data-background="./img/ucl_artwork/ucl-banner-land-darkblue-rgb.png" data-background-size="70%" data-background-position="top" data-background-opacity="1"}
+
+Advances, Promises and Problems
+
+## Today {.left_aligned}
+
+
+- Advanced data science techniques
+- The blurry boundary of data science and artificial intelligence
+- Ethical considerations of data science for crime scientists
+    - bias
+    - self learning
+- Outlook on the future
+    - boring data science
+- The technology fallacy
+    - police example
+    - theory needed
+
+
+
+##
+
+## RECAP
+
+- 
+- 
+-
+
+
+
+
+## Outlook
+
+FEEDBACK submission + revision + your project
+
+
+## Outlook
+
+Next week:
+
+- Lecture : The Applied Data Science pipeline
+- Tutorial: full pipeline + your project
+
+
+## END

@@ -127,6 +127,23 @@ Recommended:
 -  DataCamp course on Unsupervised Learning in R [https://www.datacamp.com/courses/unsupervised-learning-in-r](https://www.datacamp.com/courses/unsupervised-learning-in-r)
 
 
+#### Week 8: PROMISES AND PROBLEMS
+
+- Lecture 8: Advances, promises and problems of data science for crime science [(slides)](), [(pdf)]()
+- No tutorial
+- Homework: peer-feedback + your project + revision
+
+Required reading
+
+- Coveney, P. V., Dougherty, E. R., & Highfield, R. R. (2016). Big data need big theory too. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 374(2080), 20160153. https://doi.org/10.1098/rsta.2016.0153
+
+Recommended reading
+
+- Quijano-Sánchez, L., Liberatore, F., Camacho-Collados, J., & Camacho-Collados, M. (2018). Applying automatic text-based detection of deceptive language to police reports: Extracting behavioral patterns from a multi-step classification model to understand how we lie to the police. Knowledge-Based Systems, 149, 155–168. https://doi.org/10.1016/j.knosys.2018.03.010
+- Kadar, C., & Pletikosa, I. (2018). Mining large-scale human mobility data for long-term crime prediction. EPJ Data Science, 7(1), 26. https://doi.org/10.1140/epjds/s13688-018-0150-z
+- Burnap, P., & Williams, M. L. (2016). Us and them: identifying cyber hate on Twitter across multiple protected characteristics. EPJ Data Science, 5(1), 11. https://doi.org/10.1140/epjds/s13688-016-0072-6
+
+
 ---
 
 Module convenor and author: Bennett Kleinberg (bennett.kleinberg@ucl.ac.uk)
