@@ -129,7 +129,7 @@ Recommended:
 
 #### Week 8: PROMISES AND PROBLEMS
 
-- Lecture 8: Advances, promises and problems of data science for crime science [(slides)](), [(pdf)]()
+- Lecture 8: Advances, promises and problems of data science for crime science [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture8_promisesproblems.html), [(pdf)]()
 - No tutorial
 - Homework: peer-feedback + your project + revision
 
