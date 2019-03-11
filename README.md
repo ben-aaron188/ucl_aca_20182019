@@ -144,6 +144,10 @@ Recommended reading
 - Burnap, P., & Williams, M. L. (2016). Us and them: identifying cyber hate on Twitter across multiple protected characteristics. EPJ Data Science, 5(1), 11. https://doi.org/10.1140/epjds/s13688-016-0072-6
 
 
+#### Week 8: RECAP, CASE STUDIES, PEER-FEEDBACK
+
+- Lecture 9: Module recap, case studies [(slides)](https://raw.githack.com/ben-aaron188/ucl_aca_20182019/master/slides/aca_20182019_lecture9_recap_peerfeedback.html), [(pdf)]()
+
 ---
 
 Module convenor and author: Bennett Kleinberg (bennett.kleinberg@ucl.ac.uk)
