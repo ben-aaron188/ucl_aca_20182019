@@ -1,4 +1,4 @@
-## ADVANCED CRIME ANALYSIS 2018/2019
+## DATA SCIENCE FOR CRIME SCIENTISTS (ADVANCED CRIME ANALYSIS) 2018/2019
 
 This is the companion website for the 2018-2019 module for 3rd year undergraduate students of the BSc in Crime Science at UCL.
 
